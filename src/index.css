@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* ---- Affordable Air Direct brand tokens ---- */
+@theme {
+  --color-brand-teal: #00a7b5;
+  --color-brand-teal-dark: #0b7f89;
+  --color-brand-navy: #123b5b;
+  --color-brand-navy-deep: #0d2c44;
+  --color-brand-ink: #1b2a37;
+  --color-brand-cta: #f5852c;
+  --color-brand-cta-dark: #dc6f18;
+  --color-brand-mist: #f3f7f9;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-brand-mist text-brand-ink font-sans antialiased;
+  }
+  /* thin brand scrollbar for the range inputs */
+  input[type="range"] {
+    accent-color: var(--color-brand-teal);
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-cta px-6 py-3
+      font-semibold text-white shadow-sm transition hover:bg-brand-cta-dark
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-cta/60
+      disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300
+      bg-white px-6 py-3 font-semibold text-brand-navy transition hover:border-brand-teal
+      hover:text-brand-teal focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-teal/40;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+}
+
+/* subtle rise-in for step transitions */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-rise { animation: rise 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
