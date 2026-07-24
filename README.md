@@ -1,5 +1,9 @@
 # Affordable Air Direct — Instant HVAC Quote Store
 
+**Live demo:** https://servicespartan432.github.io/affordable-air-direct-store/
+**Repo:** https://github.com/ServiceSpartan432/affordable-air-direct-store
+
+
 Your own in-house replacement for the Contractor Commerce store embed. A full
 store page + the "Instant HVAC Quote" journey (system type → home details →
 matched Good/Better/Best options → cart → schedule install). React + Vite +
