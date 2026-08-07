@@ -24,6 +24,14 @@ export const FINANCE = {
   label: '120 mo · 9.99% APR',
 }
 
+// Meta (Facebook) tracking. Pixel ID is public (ships in the browser).
+// The CAPI access token is NEVER here — it lives only on the server relay.
+// Values can also be injected at build time via VITE_META_PIXEL_ID / VITE_CAPI_URL.
+export const META = {
+  pixelId: import.meta.env.VITE_META_PIXEL_ID || '', // e.g. "1234567890123456"
+  capiUrl: import.meta.env.VITE_CAPI_URL || '',      // e.g. "https://capi.affordableairdirect.com/capi"
+}
+
 // Every quote includes these — shown on results + cart.
 export const INCLUDED = [
   'Standard professional installation',

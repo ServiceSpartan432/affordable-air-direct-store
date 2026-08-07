@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { initPixel, trackPageView } from './lib/tracking.js'
 import Layout from './components/Layout.jsx'
 import StoreHome from './pages/StoreHome.jsx'
 import Question from './pages/journey/Question.jsx'
@@ -14,10 +15,19 @@ function ScrollToTop() {
   return null
 }
 
+// Meta Pixel init once + a PageView on every route change (hash routing).
+function PageTracker() {
+  const { pathname } = useLocation()
+  useEffect(() => { initPixel() }, [])
+  useEffect(() => { trackPageView() }, [pathname])
+  return null
+}
+
 export default function App() {
   return (
     <Layout>
       <ScrollToTop />
+      <PageTracker />
       <Routes>
         <Route path="/" element={<StoreHome />} />
         {/* fixed journey endpoints must precede the :stepId catch-all */}

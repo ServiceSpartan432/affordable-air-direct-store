@@ -1,0 +1,14 @@
+{
+  "name": "aad-capi-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Meta Conversions API relay for the Affordable Air Direct store",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

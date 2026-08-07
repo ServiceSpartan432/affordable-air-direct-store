@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import JourneyLayout from '../../components/journey/JourneyLayout.jsx'
 import { useQuote } from '../../context/QuoteContext.jsx'
 import { visibleSteps } from '../../data/journey.js'
+import { buildQuote } from '../../lib/quote.js'
+import { track, contactToUser } from '../../lib/tracking.js'
 import { IconArrowLeft, IconArrowRight, IconShield } from '../../components/icons.jsx'
 
 export default function Contact() {
@@ -16,6 +18,15 @@ export default function Contact() {
 
   const submit = (e) => {
     e.preventDefault()
+    // Lead — the key conversion. Value = the "most popular" matched option.
+    const { options, label } = buildQuote(answers)
+    const featured = options[options.length >= 3 ? 1 : 0]
+    track('Lead', {
+      custom: featured
+        ? { value: featured.price, currency: 'USD', content_name: label, content_ids: options.map((o) => o.sku) }
+        : {},
+      user: contactToUser(contact),
+    })
     navigate('/journey/results')
   }
 

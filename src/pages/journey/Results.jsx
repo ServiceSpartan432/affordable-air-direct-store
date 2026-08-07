@@ -4,6 +4,7 @@ import JourneyLayout from '../../components/journey/JourneyLayout.jsx'
 import { useQuote } from '../../context/QuoteContext.jsx'
 import { useCart } from '../../context/CartContext.jsx'
 import { buildQuote, money, modelBullets, brandOf } from '../../lib/quote.js'
+import { track, contactToUser } from '../../lib/tracking.js'
 import { visibleSteps } from '../../data/journey.js'
 import { INCLUDED, FINANCE } from '../../data/config.js'
 import { SYSTEM_ICONS, IconCheck, IconArrowLeft, IconStar } from '../../components/icons.jsx'
@@ -26,11 +27,34 @@ export default function Results() {
   const Icon = SYSTEM_ICONS[ICON_FOR[systemKey]] || SYSTEM_ICONS.complete
   const featuredIdx = options.length >= 3 ? 1 : 0
 
+  // ViewContent — customer saw real prices (value = the "most popular" option)
+  useEffect(() => {
+    if (!options.length) return
+    track('ViewContent', {
+      custom: {
+        value: options[featuredIdx].price,
+        currency: 'USD',
+        content_type: 'product',
+        content_ids: options.map((o) => o.sku),
+        content_name: label,
+      },
+      user: contactToUser(contact),
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [systemKey, tons])
+
   const choose = (opt) => {
     addItem({
       sku: opt.sku, systemKey, typeName: label, tierName: opt.tier,
       model: opt.model, furnace: opt.furnace, tons: opt.tons,
       price: opt.price, monthly: opt.monthly,
+    })
+    track('AddToCart', {
+      custom: {
+        value: opt.price, currency: 'USD', content_type: 'product',
+        content_ids: [opt.sku], content_name: `${opt.tier} ${label}`,
+      },
+      user: contactToUser(contact),
     })
     navigate('/cart')
   }

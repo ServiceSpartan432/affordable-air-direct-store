@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { money } from '../lib/quote.js'
+import { track, contactToUser } from '../lib/tracking.js'
 import { INCLUDED, FINANCE, COMPANY } from '../data/config.js'
 import { SYSTEM_ICONS, IconCheck, IconArrowRight, IconShield } from '../components/icons.jsx'
 
@@ -79,7 +80,18 @@ export default function Cart() {
                 <h2 className="font-bold text-brand-navy">Schedule your free install visit</h2>
                 <p className="mt-1 text-sm text-slate-500">No deposit due now. We confirm sizing and price on-site before any work begins.</p>
                 <form
-                  onSubmit={(e) => { e.preventDefault(); setPlaced(true) }}
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    track('Schedule', {
+                      custom: {
+                        value: subtotal, currency: 'USD', content_type: 'product',
+                        content_ids: items.map((i) => i.sku),
+                        content_name: items.map((i) => `${i.tierName} ${i.typeName}`).join(', '),
+                      },
+                      user: contactToUser(form),
+                    })
+                    setPlaced(true)
+                  }}
                   className="mt-5 grid gap-4 sm:grid-cols-2"
                 >
                   <Field label="Full name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} required />
