@@ -73,11 +73,11 @@ export const STEPS = [
 
 // Square-footage band -> system size (tons). Edit to re-tune sizing.
 export const SIZE_TO_TONS = {
-  small: 2.0,
-  small_mid: 2.5,
-  medium: 3.0,
-  mid_large: 4.0,
-  large: 5.0,
+  small: 2.0,      // 0-1200 sq.ft.
+  small_mid: 3.0,  // 1200-1500 sq.ft.
+  medium: 4.0,     // 1500-1800 sq.ft.
+  mid_large: 5.0,  // 1800-2400 sq.ft.
+  large: 5.0,      // 2400+ sq.ft.
   unknown: 3.0,
 }
 
