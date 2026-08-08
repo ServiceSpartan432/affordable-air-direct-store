@@ -1,6 +1,6 @@
 import { CATALOG } from '../data/catalog.js'
 import { SIZE_TO_TONS } from '../data/journey.js'
-import { FINANCE, ASSET_BASE } from '../data/config.js'
+import { FINANCE } from '../data/config.js'
 
 export const money = (n) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
@@ -103,23 +103,13 @@ export function modelBullets(row) {
   return bits
 }
 
-// Equipment photo for a row, chosen by brand. `absolute` for emails.
-const BRAND_SLUG = {
-  goodman: 'goodman',
-  carrier: 'carrier',
-  bryant: 'carrier',
-  affordable: 'affordable',
-  'american standard': 'affordable',
-  trane: 'affordable',
-  daikin: 'affordable',
-  lennox: 'affordable',
-  rheem: 'affordable',
-}
-export function imageForBrand(brand, { absolute = false } = {}) {
-  const slug = BRAND_SLUG[(brand || '').toLowerCase()] || 'affordable'
-  const base = absolute ? ASSET_BASE : `${import.meta.env.BASE_URL}equipment`
-  return `${base}/${slug}.jpg`
-}
+// NOTE: we deliberately do NOT show per-brand equipment photos. Different
+// models under the same brand vary in cabinet shape and discharge direction
+// (top vs. side discharge, split vs. package, etc.) and we can't verify which
+// exact unit ships for a given SKU — a real photo would risk showing the
+// wrong physical equipment. Results.jsx renders a category-level line diagram
+// (SYSTEM_ICONS) instead, which only claims "this is a heat pump" not "this
+// is exactly what will be on your roof."
 
 // Brand kicker for the card. Falls back to product-line names.
 export function brandOf(row) {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import JourneyLayout from '../../components/journey/JourneyLayout.jsx'
 import { useQuote } from '../../context/QuoteContext.jsx'
 import { useCart } from '../../context/CartContext.jsx'
-import { buildQuote, money, money2, modelBullets, brandOf, tierLabel, imageForBrand } from '../../lib/quote.js'
+import { buildQuote, money, money2, modelBullets, brandOf, tierLabel } from '../../lib/quote.js'
 import { track, contactToUser } from '../../lib/tracking.js'
 import { sendQuoteEmail } from '../../lib/quoteEmail.js'
 import { visibleSteps } from '../../data/journey.js'
@@ -90,14 +90,10 @@ export default function Results() {
                   <IconStar size={13} /> Most popular
                 </span>
               )}
-              <div className="mb-3 flex h-32 items-center justify-center rounded-lg bg-white">
-                <img
-                  src={imageForBrand(brand)}
-                  alt={`${brand} ${label}`}
-                  loading="lazy"
-                  className="max-h-32 w-auto object-contain"
-                  onError={(e) => { e.currentTarget.style.display = 'none' }}
-                />
+              {/* Category diagram, not a specific product photo — we can't verify
+                  exact cabinet/discharge type per SKU, so we don't claim to. */}
+              <div className="mb-3 flex h-32 items-center justify-center rounded-lg bg-brand-mist">
+                <Icon size={56} className="text-brand-navy/70" />
               </div>
               <p className="text-xs font-semibold uppercase tracking-wide text-brand-teal-dark">{tierLabel(opt.tier)}</p>
               <h3 className="mt-0.5 text-lg font-bold text-brand-navy">{brand ? `${brand} ${label}` : label}</h3>
