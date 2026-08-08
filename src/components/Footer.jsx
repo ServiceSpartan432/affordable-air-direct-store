@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { COMPANY } from '../data/config.js'
 import { IconPhone } from './icons.jsx'
 
@@ -26,12 +27,14 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white">Shop</h4>
+          <h4 className="text-sm font-semibold uppercase tracking-wide text-white">Explore</h4>
           <ul className="mt-4 space-y-2 text-sm">
-            <li><a href="#/journey/system_type" className="hover:text-brand-teal">Instant HVAC Quote</a></li>
-            <li><a href="#/journey/system_type" className="hover:text-brand-teal">Air Conditioners</a></li>
-            <li><a href="#/journey/system_type" className="hover:text-brand-teal">Heat Pumps</a></li>
-            <li><a href="#/journey/system_type" className="hover:text-brand-teal">Furnaces</a></li>
+            <li><Link to="/journey/system_type" className="hover:text-brand-teal">Instant HVAC Quote</Link></li>
+            <li><Link to="/services" className="hover:text-brand-teal">Services</Link></li>
+            <li><Link to="/about" className="hover:text-brand-teal">About Us</Link></li>
+            <li><Link to="/reviews" className="hover:text-brand-teal">Reviews</Link></li>
+            <li><Link to="/faq" className="hover:text-brand-teal">FAQ</Link></li>
+            <li><Link to="/contact" className="hover:text-brand-teal">Contact</Link></li>
           </ul>
         </div>
 

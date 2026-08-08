@@ -8,6 +8,12 @@ import Contact from './pages/journey/Contact.jsx'
 import Results from './pages/journey/Results.jsx'
 import Cart from './pages/Cart.jsx'
 import Search from './pages/Search.jsx'
+import Services from './pages/site/Services.jsx'
+import About from './pages/site/About.jsx'
+import Reviews from './pages/site/Reviews.jsx'
+import Faq from './pages/site/Faq.jsx'
+import ContactPage from './pages/site/Contact.jsx'
+import Privacy from './pages/site/Privacy.jsx'
 
 function ScrollToTop() {
   const { pathname, search } = useLocation()
@@ -15,7 +21,7 @@ function ScrollToTop() {
   return null
 }
 
-// Meta Pixel init once + a PageView on every route change (hash routing).
+// Meta Pixel init once + a PageView on every route change.
 function PageTracker() {
   const { pathname } = useLocation()
   useEffect(() => { initPixel() }, [])
@@ -30,12 +36,22 @@ export default function App() {
       <PageTracker />
       <Routes>
         <Route path="/" element={<StoreHome />} />
-        {/* fixed journey endpoints must precede the :stepId catch-all */}
+        {/* funnel — fixed endpoints must precede the :stepId catch-all */}
         <Route path="/journey/contact" element={<Contact />} />
         <Route path="/journey/results" element={<Results />} />
         <Route path="/journey/:stepId" element={<Question />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/search" element={<Search />} />
+        {/* site pages */}
+        <Route path="/services" element={<Services />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/faq" element={<Faq />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/privacy" element={<Privacy />} />
+        {/* legacy WordPress paths — keep old links + indexed URLs working */}
+        <Route path="/privacy-policy" element={<Navigate to="/privacy" replace />} />
+        <Route path="/store" element={<Navigate to="/journey/system_type" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>

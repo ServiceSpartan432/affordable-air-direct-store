@@ -1,6 +1,9 @@
+import { usePageMeta } from '../../lib/usePageMeta.js'
+
 // Progress across the whole journey: N questions -> contact -> your options.
 // The progress bar is pinned to the bottom of the funnel (sticky).
 export default function JourneyLayout({ current, stepIndex = 0, totalSteps = 5, title, subtitle, children }) {
+  usePageMeta('Instant HVAC Quote | Affordable Air Direct')
   const total = totalSteps + 2 // questions + contact + results
   const position =
     current === 'results' ? total : current === 'contact' ? totalSteps + 1 : stepIndex + 1

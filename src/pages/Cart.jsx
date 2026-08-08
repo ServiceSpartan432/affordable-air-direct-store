@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { money, money2, tierLabel } from '../lib/quote.js'
 import { track, contactToUser } from '../lib/tracking.js'
+import { usePageMeta } from '../lib/usePageMeta.js'
 import { INCLUDED, FINANCE, COMPANY } from '../data/config.js'
 import { SYSTEM_ICONS, IconCheck, IconArrowRight, IconShield } from '../components/icons.jsx'
 
 const ICON_FOR = { ac: 'ac', heating: 'furnace', both: 'complete', package: 'package', heatpump: 'heat_pump' }
 
 export default function Cart() {
+  usePageMeta('Your Cart | Affordable Air Direct')
   const { items, removeItem, subtotal, clear } = useCart()
   const [placed, setPlaced] = useState(false)
   const [form, setForm] = useState({ name: '', phone: '', email: '', date: '' })
