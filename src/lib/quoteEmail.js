@@ -1,7 +1,7 @@
 // Fire-and-forget: send the selected quote to the server, which emails the
 // customer a copy and notifies the team. Never blocks or breaks the UI.
 import { QUOTE_ENDPOINT } from '../data/config.js'
-import { tierLabel, brandOf, modelBullets } from './quote.js'
+import { tierLabel, brandOf, modelBullets, equipmentImages } from './quote.js'
 import { isDemoMode } from './demoMode.js'
 
 export function sendQuoteEmail({ contact, systemKey, label, tons, options, selectedSku }) {
@@ -19,8 +19,9 @@ export function sendQuoteEmail({ contact, systemKey, label, tons, options, selec
       tier: o.tier,
       tierLabel: tierLabel(o.tier),
       brand: brandOf(o),
-      // No product photo: we can't verify exact cabinet/discharge type per
-      // SKU, so we don't show one rather than risk showing the wrong unit.
+      // Real photos only for verified product lines (e.g. Carrier Infinity);
+      // [] otherwise — the email template skips the photo slot gracefully.
+      images: equipmentImages(o, systemKey, { absolute: true }),
       price: o.price,
       monthly: o.monthly,
       model: o.model,

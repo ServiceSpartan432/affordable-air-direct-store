@@ -1,6 +1,6 @@
 import { CATALOG } from '../data/catalog.js'
 import { SIZE_TO_TONS } from '../data/journey.js'
-import { FINANCE } from '../data/config.js'
+import { FINANCE, ASSET_BASE } from '../data/config.js'
 
 export const money = (n) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
@@ -103,13 +103,40 @@ export function modelBullets(row) {
   return bits
 }
 
-// NOTE: we deliberately do NOT show per-brand equipment photos. Different
-// models under the same brand vary in cabinet shape and discharge direction
-// (top vs. side discharge, split vs. package, etc.) and we can't verify which
-// exact unit ships for a given SKU — a real photo would risk showing the
-// wrong physical equipment. Results.jsx renders a category-level line diagram
-// (SYSTEM_ICONS) instead, which only claims "this is a heat pump" not "this
-// is exactly what will be on your roof."
+// NOTE on equipment imagery: we do NOT map photos by brand — a brand covers
+// many product lines with different cabinet shapes/discharge types, and
+// guessing caused real mismatches (package unit shown as a split system, a
+// non-side-discharge photo used for a side-discharge unit). Instead we only
+// show a real photo when the sheet's own model text names a *specific,
+// verified* product line (currently: Carrier Infinity, confirmed against
+// carrier.com's official product photos). Everything else falls back to the
+// category-level diagram in Results.jsx, which only claims "this is a heat
+// pump," not "this is the exact unit on your roof."
+const VERIFIED_PHOTOS = {
+  'carrier-infinity-ac': 'carrier-infinity-ac.jpg',           // Infinity 21 AC (26VNA1) — carrier.com
+  'carrier-infinity-furnace': 'carrier-infinity-furnace.jpg', // Infinity 95 furnace (59CU5) — carrier.com
+}
+
+// Returns [{src, alt}] for the row's condenser/AC and/or furnace, only when
+// that specific component's model text confidently names "Infinity" — never
+// inferred from brand alone. `systemKey==='heating'` stores the furnace in
+// `row.model` (no separate `row.furnace` field), so that case is handled
+// specially. Returns [] when we can't verify — callers should fall back to
+// the category icon.
+export function equipmentImages(row, systemKey, { absolute = false } = {}) {
+  const base = absolute ? ASSET_BASE : `${import.meta.env.BASE_URL}equipment`
+  const isInfinity = (t) => /infinity/i.test(t || '')
+  const photo = (key, alt) => ({ src: `${base}/${VERIFIED_PHOTOS[key]}`, alt })
+  const imgs = []
+
+  if (systemKey === 'heating') {
+    if (isInfinity(row.model)) imgs.push(photo('carrier-infinity-furnace', 'Carrier Infinity gas furnace'))
+  } else {
+    if (isInfinity(row.model)) imgs.push(photo('carrier-infinity-ac', 'Carrier Infinity condenser'))
+    if (isInfinity(row.furnace)) imgs.push(photo('carrier-infinity-furnace', 'Carrier Infinity gas furnace'))
+  }
+  return imgs
+}
 
 // Brand kicker for the card. Falls back to product-line names.
 export function brandOf(row) {
