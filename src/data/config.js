@@ -33,21 +33,22 @@ export const CLIENTCARE = {
 
 // Meta (Facebook) tracking. Pixel/Dataset ID is public (ships in the browser).
 // The CAPI access token is NEVER here — it lives only on the server route.
+// The API runs in the aha_team_hub container but is exposed under the store's
+// own domain (capi.affordableairdirect.com) so fbp/fbc are first-party.
 // Values can be overridden at build time via VITE_* env.
 export const META = {
   pixelId: import.meta.env.VITE_META_PIXEL_ID || '25623586720641180',
-  capiUrl: import.meta.env.VITE_CAPI_URL || 'https://app.affordableairla.com/api/capi',
+  capiUrl: import.meta.env.VITE_CAPI_URL || 'https://capi.affordableairdirect.com/api/capi',
 }
 
-// Endpoint (on aha-team-hub) that emails the customer their quote + notifies the team.
+// Endpoint that emails the customer their quote + notifies the team.
 export const QUOTE_ENDPOINT =
-  import.meta.env.VITE_QUOTE_URL || 'https://app.affordableairla.com/api/quote'
+  import.meta.env.VITE_QUOTE_URL || 'https://capi.affordableairdirect.com/api/quote'
 
 // Absolute base for equipment images (emails need absolute URLs). Served from
-// the deployed store's /equipment folder.
+// the deployed store's /equipment folder (shop.affordableairdirect.com in prod).
 export const ASSET_BASE =
-  import.meta.env.VITE_ASSET_BASE ||
-  'https://servicespartan432.github.io/affordable-air-direct-store/equipment'
+  import.meta.env.VITE_ASSET_BASE || 'https://shop.affordableairdirect.com/equipment'
 
 // Every quote includes these — shown on results + cart.
 export const INCLUDED = [
