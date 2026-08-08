@@ -12,9 +12,10 @@ export const STEPS = [
     question: "Let's start with what type of system you're interested in today.",
     layout: 'tiles',
     options: [
-      { value: 'both',    label: 'Heating + Cooling', icon: 'complete', hint: 'A complete system' },
-      { value: 'heating', label: 'Heating',           icon: 'furnace',  hint: 'Furnace only' },
-      { value: 'cooling', label: 'Cooling',           icon: 'ac',       hint: 'Air conditioning only' },
+      { value: 'both',      label: 'Heating + Cooling', icon: 'complete',  hint: 'Gas furnace + AC' },
+      { value: 'heating',   label: 'Heating',           icon: 'furnace',   hint: 'Gas furnace only' },
+      { value: 'heatpump',  label: 'Heat Pump',         icon: 'heat_pump', hint: 'All-electric heating & cooling' },
+      { value: 'cooling',   label: 'Cooling',           icon: 'ac',        hint: 'Air conditioning only' },
     ],
   },
   {
@@ -46,8 +47,8 @@ export const STEPS = [
     id: 'ac_unit_location',
     path: 'ac_unit_location',
     question: 'Where is your AC unit located?',
-    // only asked when the job involves cooling
-    showIf: (a) => a.system_type === 'cooling' || a.system_type === 'both',
+    // only asked when the job involves an outdoor condenser
+    showIf: (a) => ['cooling', 'both', 'heatpump'].includes(a.system_type),
     options: [
       { value: 'backyard', label: 'Backyard' },
       { value: 'adjacent', label: 'Adjacent to home' },

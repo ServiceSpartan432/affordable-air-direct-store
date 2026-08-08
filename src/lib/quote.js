@@ -26,6 +26,7 @@ export const tierLabel = (tier) => TIER_LABEL[tier] || tier
 // with a Packaged Unit answer overriding to the package catalog.
 export function resolveSystemKey(answers = {}) {
   if (answers.unit_location === 'package') return 'package'
+  if (answers.system_type === 'heatpump') return 'heatpump'
   if (answers.system_type === 'cooling') return 'ac'
   if (answers.system_type === 'heating') return 'heating'
   return 'both'

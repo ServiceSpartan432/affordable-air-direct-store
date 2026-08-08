@@ -6,9 +6,10 @@ import { SYSTEM_ICONS, IconArrowRight, IconSearch } from '../components/icons.js
 
 // searchable entry points -> which system_type answer they set
 const ENTRIES = [
-  { key: 'both',    label: CATALOG.both.label,    terms: 'complete system ac furnace heating cooling split', icon: 'complete' },
-  { key: 'cooling', label: CATALOG.ac.label,      terms: 'air conditioner ac cooling condenser coil',        icon: 'ac' },
-  { key: 'heating', label: CATALOG.heating.label, terms: 'furnace heater heating gas',                       icon: 'furnace' },
+  { key: 'both',     label: CATALOG.both.label,     terms: 'complete system ac furnace heating cooling split', icon: 'complete' },
+  { key: 'cooling',  label: CATALOG.ac.label,       terms: 'air conditioner ac cooling condenser coil',        icon: 'ac' },
+  { key: 'heating',  label: CATALOG.heating.label,  terms: 'furnace heater heating gas',                       icon: 'furnace' },
+  { key: 'heatpump', label: CATALOG.heatpump.label, terms: 'heat pump electric heating cooling all-electric',  icon: 'heat_pump' },
 ]
 
 export default function Search() {
