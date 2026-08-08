@@ -76,10 +76,13 @@ export function modelBullets(row) {
   const push = (t) => { if (t && !bits.includes(t) && bits.length < 4) bits.push(t) }
   const text = [row.model, row.furnace].filter(Boolean).join(' ')
 
-  // efficiency: "21 SEER", "Goodman 14 AC", "16 True Inverter", "15 SEER HP"
+  // efficiency: "21 SEER", "Goodman 14 AC", "16 True Inverter", "15 SEER HP",
+  // or a bare trailing rating like "American Standard Gold 15" (product-line
+  // name + number, no AC/HP/SEER suffix — fall back to a plausible SEER2 range).
   const seer =
     text.match(/(\d{2}(?:\.\d)?)\s*SEER/i) ||
-    text.match(/\b(\d{2}(?:\.\d)?)\s*(?:AC|HP|True\s*Inverter)\b/i)
+    text.match(/\b(\d{2}(?:\.\d)?)\s*(?:AC|HP|True\s*Inverter)\b/i) ||
+    text.match(/\b(1[3-9]|2[0-4])\s*$/)
   if (seer) push(`Up to ${seer[1]} SEER2`)
 
   // heating efficiency: "80%", "96% AFUE"
