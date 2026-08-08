@@ -1,6 +1,6 @@
 import { CATALOG } from '../data/catalog.js'
 import { SIZE_TO_TONS } from '../data/journey.js'
-import { FINANCE } from '../data/config.js'
+import { FINANCE, ASSET_BASE } from '../data/config.js'
 
 export const money = (n) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
@@ -98,6 +98,24 @@ export function modelBullets(row) {
   // never render an empty card
   if (!bits.length) push('Professionally installed & warrantied')
   return bits
+}
+
+// Equipment photo for a row, chosen by brand. `absolute` for emails.
+const BRAND_SLUG = {
+  goodman: 'goodman',
+  carrier: 'carrier',
+  bryant: 'carrier',
+  affordable: 'affordable',
+  'american standard': 'affordable',
+  trane: 'affordable',
+  daikin: 'affordable',
+  lennox: 'affordable',
+  rheem: 'affordable',
+}
+export function imageForBrand(brand, { absolute = false } = {}) {
+  const slug = BRAND_SLUG[(brand || '').toLowerCase()] || 'affordable'
+  const base = absolute ? ASSET_BASE : `${import.meta.env.BASE_URL}equipment`
+  return `${base}/${slug}.jpg`
 }
 
 // Brand kicker for the card. Falls back to product-line names.

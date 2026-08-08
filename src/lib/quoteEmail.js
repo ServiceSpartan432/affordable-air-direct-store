@@ -1,7 +1,7 @@
 // Fire-and-forget: send the selected quote to the server, which emails the
 // customer a copy and notifies the team. Never blocks or breaks the UI.
 import { QUOTE_ENDPOINT } from '../data/config.js'
-import { tierLabel, brandOf, modelBullets } from './quote.js'
+import { tierLabel, brandOf, modelBullets, imageForBrand } from './quote.js'
 
 export function sendQuoteEmail({ contact, systemKey, label, tons, options, selectedSku }) {
   if (!QUOTE_ENDPOINT) return
@@ -16,6 +16,7 @@ export function sendQuoteEmail({ contact, systemKey, label, tons, options, selec
       tier: o.tier,
       tierLabel: tierLabel(o.tier),
       brand: brandOf(o),
+      image: imageForBrand(brandOf(o), { absolute: true }),
       price: o.price,
       monthly: o.monthly,
       model: o.model,

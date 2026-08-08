@@ -43,6 +43,12 @@ export const META = {
 export const QUOTE_ENDPOINT =
   import.meta.env.VITE_QUOTE_URL || 'https://app.affordableairla.com/api/quote'
 
+// Absolute base for equipment images (emails need absolute URLs). Served from
+// the deployed store's /equipment folder.
+export const ASSET_BASE =
+  import.meta.env.VITE_ASSET_BASE ||
+  'https://servicespartan432.github.io/affordable-air-direct-store/equipment'
+
 // Every quote includes these — shown on results + cart.
 export const INCLUDED = [
   'Standard professional installation',
