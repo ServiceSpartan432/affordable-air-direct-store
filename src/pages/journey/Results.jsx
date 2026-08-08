@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import JourneyLayout from '../../components/journey/JourneyLayout.jsx'
 import { useQuote } from '../../context/QuoteContext.jsx'
 import { useCart } from '../../context/CartContext.jsx'
-import { buildQuote, money, modelBullets, brandOf } from '../../lib/quote.js'
+import { buildQuote, money, money2, modelBullets, brandOf, tierLabel } from '../../lib/quote.js'
 import { track, contactToUser } from '../../lib/tracking.js'
+import { sendQuoteEmail } from '../../lib/quoteEmail.js'
 import { visibleSteps } from '../../data/journey.js'
 import { INCLUDED, FINANCE } from '../../data/config.js'
 import { SYSTEM_ICONS, IconCheck, IconArrowLeft, IconStar } from '../../components/icons.jsx'
@@ -52,10 +53,12 @@ export default function Results() {
     track('AddToCart', {
       custom: {
         value: opt.price, currency: 'USD', content_type: 'product',
-        content_ids: [opt.sku], content_name: `${opt.tier} ${label}`,
+        content_ids: [opt.sku], content_name: `${tierLabel(opt.tier)} ${label}`,
       },
       user: contactToUser(contact),
     })
+    // Email the customer their quote + notify the team (fire-and-forget).
+    sendQuoteEmail({ contact, systemKey, label, tons, options, selectedSku: opt.sku })
     navigate('/cart')
   }
 
@@ -87,12 +90,12 @@ export default function Results() {
                   <IconStar size={13} /> Most popular
                 </span>
               )}
-              {brand && <p className="text-xs font-semibold uppercase tracking-wide text-brand-teal-dark">{brand}</p>}
-              <h3 className="mt-0.5 text-lg font-bold text-brand-navy">{opt.tier}</h3>
+              <p className="text-xs font-semibold uppercase tracking-wide text-brand-teal-dark">{tierLabel(opt.tier)}</p>
+              <h3 className="mt-0.5 text-lg font-bold text-brand-navy">{brand ? `${brand} ${label}` : label}</h3>
 
               <div className="mt-4">
                 <p className="text-3xl font-extrabold text-brand-navy">{money(opt.price)}</p>
-                <p className="text-sm text-slate-500">installed — or {money(opt.monthly)}/mo</p>
+                <p className="text-sm text-slate-500">Fully installed — or {money2(opt.monthly)}/mo</p>
                 <p className="text-xs text-slate-400">{FINANCE.label}</p>
               </div>
 

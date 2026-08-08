@@ -5,6 +5,22 @@ import { FINANCE } from '../data/config.js'
 export const money = (n) =>
   n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
 
+// two-decimal money (used for financing to match the sample quote)
+export const money2 = (n) =>
+  n.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })
+
+// Customer-facing tier names (sheet tier -> label shown on cards & quote).
+export const TIER_LABEL = {
+  'Standard': 'Base',
+  'Very Good': 'Good',
+  'Excellent': 'Better',
+  'Best of the Best': 'Best',
+  'Good': 'Good',
+  'Better': 'Better',
+  'Best': 'Best',
+}
+export const tierLabel = (tier) => TIER_LABEL[tier] || tier
+
 // ---- Routing: answers -> which catalog (matchup set) ----------------------
 // Cooling -> AC+Coil, Heating -> Furnace, Heating+Cooling -> Full-Split System,
 // with a Packaged Unit answer overriding to the package catalog.
@@ -20,10 +36,10 @@ export function resolveTons(answers = {}) {
 }
 
 // ---- Financing ------------------------------------------------------------
-export function monthlyPayment(principal, { apr = FINANCE.apr, months = FINANCE.months } = {}) {
-  const r = apr / 12
-  if (r === 0) return Math.round(principal / months)
-  return Math.round((principal * r) / (1 - Math.pow(1 + r, -months)))
+// Flat factor per dollar (matches the sample quote). Returns a precise (2dp)
+// figure; callers round for display as needed.
+export function monthlyPayment(principal, { monthlyFactor = FINANCE.monthlyFactor } = {}) {
+  return Math.round(principal * monthlyFactor * 100) / 100
 }
 
 // ---- Build the priced options for the results step ------------------------
@@ -63,7 +79,7 @@ export function modelBullets(row) {
   const seer =
     text.match(/(\d{2}(?:\.\d)?)\s*SEER/i) ||
     text.match(/\b(\d{2}(?:\.\d)?)\s*(?:AC|HP|True\s*Inverter)\b/i)
-  if (seer) push(`Up to ${seer[1]} SEER efficiency`)
+  if (seer) push(`Up to ${seer[1]} SEER2`)
 
   // heating efficiency: "80%", "96% AFUE"
   const afue = text.match(/(\d{2})\s*%/)

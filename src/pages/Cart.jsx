@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
-import { money } from '../lib/quote.js'
+import { money, money2, tierLabel } from '../lib/quote.js'
 import { track, contactToUser } from '../lib/tracking.js'
 import { INCLUDED, FINANCE, COMPANY } from '../data/config.js'
 import { SYSTEM_ICONS, IconCheck, IconArrowRight, IconShield } from '../components/icons.jsx'
@@ -57,7 +57,7 @@ export default function Cart() {
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-3">
                         <div>
-                          <h3 className="font-bold text-brand-navy">{it.tierName} · {it.typeName}</h3>
+                          <h3 className="font-bold text-brand-navy">{tierLabel(it.tierName)} · {it.typeName}</h3>
                           <p className="text-sm text-slate-500">{it.tons ? `${it.tons}-ton` : ''}</p>
                           <p className="mt-1 text-xs leading-relaxed text-slate-400">
                             {it.model}{it.furnace ? ` · ${it.furnace}` : ''}
@@ -68,7 +68,7 @@ export default function Cart() {
                         </button>
                       </div>
                       <p className="mt-3 text-lg font-bold text-brand-navy">{money(it.price)}
-                        <span className="ml-2 text-sm font-normal text-slate-500">or {money(it.monthly)}/mo · {FINANCE.label}</span>
+                        <span className="ml-2 text-sm font-normal text-slate-500">or {money2(it.monthly)}/mo · {FINANCE.label}</span>
                       </p>
                     </div>
                   </div>

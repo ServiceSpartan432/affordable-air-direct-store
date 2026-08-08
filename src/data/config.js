@@ -17,20 +17,31 @@ export const COMPANY = {
   },
 }
 
-// Financing shown as "as low as $X/mo". Tune term + APR to match your lender.
+// Financing: flat payment factor per dollar over the term (matches the sample
+// quote — e.g. $9,037 -> $114.28/mo). monthly = price * monthlyFactor.
 export const FINANCE = {
-  apr: 0.0999,
+  monthlyFactor: 0.012646, // ~$12.65 per $1,000 financed, 120-month term
   months: 120,
-  label: '120 mo · 9.99% APR',
+  label: '120-month financing',
 }
 
-// Meta (Facebook) tracking. Pixel ID is public (ships in the browser).
-// The CAPI access token is NEVER here — it lives only on the server relay.
-// Values can also be injected at build time via VITE_META_PIXEL_ID / VITE_CAPI_URL.
-export const META = {
-  pixelId: import.meta.env.VITE_META_PIXEL_ID || '', // e.g. "1234567890123456"
-  capiUrl: import.meta.env.VITE_CAPI_URL || '',      // e.g. "https://capi.affordableairdirect.com/capi"
+// Clientcare contact shown on the quote (separate from the store's general line).
+export const CLIENTCARE = {
+  email: 'Clientcare@affordableairdirect.com',
+  phone: '(818) 452-5794',
 }
+
+// Meta (Facebook) tracking. Pixel/Dataset ID is public (ships in the browser).
+// The CAPI access token is NEVER here — it lives only on the server route.
+// Values can be overridden at build time via VITE_* env.
+export const META = {
+  pixelId: import.meta.env.VITE_META_PIXEL_ID || '25623586720641180',
+  capiUrl: import.meta.env.VITE_CAPI_URL || 'https://app.affordableairla.com/api/capi',
+}
+
+// Endpoint (on aha-team-hub) that emails the customer their quote + notifies the team.
+export const QUOTE_ENDPOINT =
+  import.meta.env.VITE_QUOTE_URL || 'https://app.affordableairla.com/api/quote'
 
 // Every quote includes these — shown on results + cart.
 export const INCLUDED = [
