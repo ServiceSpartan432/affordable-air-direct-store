@@ -2,9 +2,12 @@
 // customer a copy and notifies the team. Never blocks or breaks the UI.
 import { QUOTE_ENDPOINT } from '../data/config.js'
 import { tierLabel, brandOf, modelBullets, imageForBrand } from './quote.js'
+import { isDemoMode } from './demoMode.js'
 
 export function sendQuoteEmail({ contact, systemKey, label, tons, options, selectedSku }) {
   if (!QUOTE_ENDPOINT) return
+  // Demo mode: never actually email the customer or the team.
+  if (isDemoMode()) return
   const payload = {
     contact,
     systemKey,

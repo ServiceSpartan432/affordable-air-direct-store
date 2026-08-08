@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { COMPANY, QUOTE_ENDPOINT } from '../../data/config.js'
 import { usePageMeta } from '../../lib/usePageMeta.js'
 import { track, contactToUser } from '../../lib/tracking.js'
+import { isDemoMode } from '../../lib/demoMode.js'
 import { IconPhone, IconCheck, IconArrowRight } from '../../components/icons.jsx'
 
 // Contact endpoint lives next to the quote endpoint on the API host.
@@ -18,15 +19,17 @@ export default function Contact() {
   const submit = (e) => {
     e.preventDefault()
     track('Lead', { custom: { content_name: 'Contact form' }, user: contactToUser(form) })
-    try {
-      fetch(CONTACT_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-        keepalive: true,
-        credentials: 'omit',
-      }).catch(() => {})
-    } catch { /* never block the confirmation */ }
+    if (!isDemoMode()) {
+      try {
+        fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(form),
+          keepalive: true,
+          credentials: 'omit',
+        }).catch(() => {})
+      } catch { /* never block the confirmation */ }
+    }
     setSent(true)
   }
 

@@ -8,11 +8,14 @@
 // access token never touches the browser.
 // ---------------------------------------------------------------------------
 import { META } from '../data/config.js'
+import { isDemoMode } from './demoMode.js'
 
 let pixelReady = false
 
 // ---- Meta Pixel base code (injected once, only if a pixel id is set) -------
 export function initPixel() {
+  // Demo mode: never load fbevents.js at all — no Pixel calls are possible.
+  if (isDemoMode()) return
   if (pixelReady || !META.pixelId || typeof window === 'undefined') return
   /* eslint-disable */
   !(function (f, b, e, v, n, t, s) {
@@ -56,6 +59,8 @@ function getFbc() {
 // opts.user:   { email, phone, firstName, lastName }  (raw — relay hashes it)
 export function track(eventName, opts = {}) {
   if (typeof window === 'undefined') return
+  // Demo mode: no Pixel call, no CAPI POST — safe to click through freely.
+  if (isDemoMode()) return
   const eventId = uuid()
   const custom = opts.custom || {}
 

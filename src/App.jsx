@@ -17,7 +17,10 @@ import Privacy from './pages/site/Privacy.jsx'
 
 function ScrollToTop() {
   const { pathname, search } = useLocation()
-  useEffect(() => window.scrollTo(0, 0), [pathname, search])
+  // block body: guarantees no accidental non-function return value reaches
+  // React as a useEffect "cleanup" (window.scrollTo's return isn't guaranteed
+  // undefined in every environment/polyfill).
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname, search])
   return null
 }
 

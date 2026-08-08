@@ -2,7 +2,11 @@
 # Build with the GH Pages base path and publish dist/ to the gh-pages branch.
 set -e
 export PATH="$HOME/.local/node/bin:$PATH"
-DEPLOY_BASE=/affordable-air-direct-store/ npm run build
+# Self-contained demo: equipment images served from this same GH Pages build,
+# not the (possibly not-yet-live) production root domain.
+DEPLOY_BASE=/affordable-air-direct-store/ \
+VITE_ASSET_BASE=https://servicespartan432.github.io/affordable-air-direct-store/equipment \
+  npm run build
 rm -rf /tmp/ghp && cp -r dist /tmp/ghp && cd /tmp/ghp && touch .nojekyll
 # SPA fallback for BrowserRouter on GH Pages: serve the app at any path
 cp index.html 404.html
