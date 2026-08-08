@@ -45,10 +45,10 @@ export const META = {
 export const QUOTE_ENDPOINT =
   import.meta.env.VITE_QUOTE_URL || 'https://capi.affordableairdirect.com/api/quote'
 
-// Absolute base for equipment images (emails need absolute URLs). Served from
-// the deployed store's /equipment folder (shop.affordableairdirect.com in prod).
+// Absolute base for equipment images (emails need absolute URLs). The store
+// takes over the whole site, so images live at the root domain's /equipment.
 export const ASSET_BASE =
-  import.meta.env.VITE_ASSET_BASE || 'https://shop.affordableairdirect.com/equipment'
+  import.meta.env.VITE_ASSET_BASE || 'https://affordableairdirect.com/equipment'
 
 // Every quote includes these — shown on results + cart.
 export const INCLUDED = [
