@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { initPixel, trackPageView } from './lib/tracking.js'
 import Layout from './components/Layout.jsx'
+import Landing from './pages/Landing.jsx'
 import StoreHome from './pages/StoreHome.jsx'
 import Question from './pages/journey/Question.jsx'
 import Contact from './pages/journey/Contact.jsx'
@@ -24,7 +25,8 @@ function ScrollToTop() {
   return null
 }
 
-// Meta Pixel init once + a PageView on every route change.
+// Meta Pixel init once + a PageView on every route change. Applies to every
+// route, including /lp, so both surfaces get full tracking coverage.
 function PageTracker() {
   const { pathname } = useLocation()
   useEffect(() => { initPixel() }, [])
@@ -32,11 +34,10 @@ function PageTracker() {
   return null
 }
 
-export default function App() {
+// The rest of the site: full nav/footer chrome via Layout.
+function MainSite() {
   return (
     <Layout>
-      <ScrollToTop />
-      <PageTracker />
       <Routes>
         <Route path="/" element={<StoreHome />} />
         {/* funnel — fixed endpoints must precede the :stepId catch-all */}
@@ -58,5 +59,19 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>
+  )
+}
+
+export default function App() {
+  return (
+    <>
+      <ScrollToTop />
+      <PageTracker />
+      <Routes>
+        {/* dedicated ad-traffic page — deliberately no nav/footer chrome */}
+        <Route path="/lp" element={<Landing />} />
+        <Route path="/*" element={<MainSite />} />
+      </Routes>
+    </>
   )
 }
