@@ -3,7 +3,12 @@
 // Edit copy here — pages render from this data.
 // ---------------------------------------------------------------------------
 
-export const RATING = { stars: 5, count: 21 }
+// Pulled live from the real Affordable Air Direct Google Business Profile
+// (not the parent Affordable Heating and Air listing, which is a different,
+// much larger profile). Verify + refresh periodically as the review count grows:
+// https://www.google.com/maps?cid=15696765585030183137
+export const RATING = { stars: 4.9, count: 49 }
+export const GOOGLE_REVIEWS_URL = 'https://www.google.com/maps?cid=15696765585030183137'
 
 export const STEPS_HOW = [
   {
@@ -71,12 +76,31 @@ export const SERVICES = [
 
 export const BRANDS = ['American Standard', 'Carrier', 'Mitsubishi Electric', 'Daikin', 'Lennox', 'Goodman']
 
+// Real customer reviews, pulled directly from our Google Business Profile
+// (see GOOGLE_REVIEWS_URL above) — not written copy. Refresh from the source
+// periodically; don't invent or edit the wording.
 export const TESTIMONIALS = [
-  { name: 'Michael R.', text: "Finally, an HVAC company that doesn't overcharge! The instant quote matched what I paid to the dollar." },
-  { name: 'Sarah P.', text: 'Professional, honest, and quick service. No salesperson, no pressure — just a fair price and a clean install.' },
-  { name: 'Daniel L.', text: 'I love their transparent pricing & work. I compared three quotes and nobody came close.' },
-  { name: 'Robert T.', text: 'The cleanest and most professional installation I have seen. Highly recommend this company!' },
-  { name: 'Robert T.', text: 'Highly recommend this company! From online quote to install took less than a week.' },
+  {
+    name: 'Teri A.',
+    when: '2 weeks ago',
+    text: 'Juan G arrived at our home with a wonderful smile and introduction even though we were his last customer of the day! He worked tirelessly to resolve our problem and gave us updates as he went along.',
+  },
+  {
+    name: 'Christine M.',
+    when: '2 weeks ago',
+    text: "Juan was terrific! He was prompt, professional & he explained everything clearly. He interfaced with Rheem to verify my HVAC warranty coverage. I'm very happy now.",
+  },
+  {
+    name: 'Cynthia B.',
+    when: '11 months ago',
+    text: 'We had to replace our central HVAC system and Alfredo was great through the entire process. Attentive, communicative, and ensuring we were taken care of. Will definitely come back for any HVAC needs.',
+  },
+]
+
+// Real installs, photographed on real jobs — from our Google Business Profile.
+export const INSTALL_PHOTOS = [
+  { src: '/reviews/install-1.jpg', alt: 'Furnace installed in a customer attic by our crew' },
+  { src: '/reviews/install-2.jpg', alt: 'HVAC system installed in a customer attic by our crew' },
 ]
 
 export const FAQS = [
