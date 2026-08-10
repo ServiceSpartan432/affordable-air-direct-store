@@ -27,6 +27,12 @@ export function initPixel() {
     s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
   /* eslint-enable */
+  // Limited Data Use — Meta's actual CCPA/CPRA (CA/CO/CT) mechanism: this event
+  // is excluded from ad personalization / audience building even though it
+  // still counts for measurement. Country/state = 0,0 tells Meta to detect
+  // the visitor's location itself and apply the restriction only where the
+  // law actually requires it (a no-op everywhere else). Must run before init.
+  window.fbq('dataProcessingOptions', ['LDU'], 0, 0)
   window.fbq('init', META.pixelId)
   pixelReady = true
 }
@@ -111,5 +117,6 @@ export function contactToUser(contact = {}) {
     phone: contact.phone || '',
     firstName: firstName || '',
     lastName: rest.join(' ') || '',
+    zip: contact.zip || '',
   }
 }

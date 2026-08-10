@@ -41,6 +41,11 @@ export default function Contact() {
         <Field label="Full name" value={contact.name} onChange={(v) => setContact({ name: v })} required autoFocus />
         <Field label="Phone number" type="tel" value={contact.phone} onChange={(v) => setContact({ phone: v })} required />
         <Field label="Email address" type="email" value={contact.email} onChange={(v) => setContact({ email: v })} required />
+        <Field
+          label="ZIP code" value={contact.zip} required
+          onChange={(v) => setContact({ zip: v.replace(/\D/g, '').slice(0, 5) })}
+          inputMode="numeric" pattern="\d{5}" maxLength={5}
+        />
 
         <button className="btn-primary w-full">
           Show my prices <IconArrowRight size={18} />
@@ -63,12 +68,12 @@ export default function Contact() {
   )
 }
 
-function Field({ label, value, onChange, type = 'text', required, autoFocus }) {
+function Field({ label, value, onChange, type = 'text', required, autoFocus, ...rest }) {
   return (
     <label className="block text-sm">
       <span className="font-medium text-brand-navy">{label}{required && <span className="text-brand-cta"> *</span>}</span>
       <input
-        type={type} value={value} required={required} autoFocus={autoFocus}
+        type={type} value={value} required={required} autoFocus={autoFocus} {...rest}
         onChange={(e) => onChange(e.target.value)}
         className="mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3.5 py-3 outline-none focus:border-brand-teal"
       />
