@@ -45,14 +45,14 @@ const uuid = () =>
     return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
   })
 
-const getCookie = (name) => {
+export const getCookie = (name) => {
   const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')
   return m ? m.pop() : ''
 }
 
 // _fbc is derived from the fbclid URL param on first landing if the cookie
 // isn't set yet — captures paid-click attribution even before fbevents writes it.
-function getFbc() {
+export function getFbc() {
   const existing = getCookie('_fbc')
   if (existing) return existing
   const fbclid = new URLSearchParams(window.location.search).get('fbclid')
