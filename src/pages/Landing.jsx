@@ -19,7 +19,11 @@ export default function Landing() {
   const { setAnswer } = useQuote()
   const copy = landingCopyFor(params.get('promo'))
 
-  usePageMeta(`${copy.headline} | ${COMPANY.name}`, copy.sub)
+  // Ad landing page — deliberately excluded from organic search (thin,
+  // ad-copy-matched content that would otherwise compete with / dilute the
+  // homepage). Fully crawlable and functional for paid traffic + Meta's own
+  // page-quality signals; just not something we want ranking organically.
+  usePageMeta(`${copy.headline} | ${COMPANY.name}`, copy.sub, { noindex: true })
 
   const pick = (v) => { setAnswer('system_type', v); navigate('/journey/residence_type') }
 

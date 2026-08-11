@@ -5,10 +5,16 @@
 
 // Pulled live from the real Affordable Air Direct Google Business Profile
 // (not the parent Affordable Heating and Air listing, which is a different,
-// much larger profile). Verify + refresh periodically as the review count grows:
+// much larger profile). This grows continuously — verify + refresh
+// periodically (checked 2026-08-10, was 49 then 51 within the same day):
 // https://www.google.com/maps?cid=15696765585030183137
-export const RATING = { stars: 4.9, count: 49 }
+export const RATING = { stars: 4.9, count: 51 }
 export const GOOGLE_REVIEWS_URL = 'https://www.google.com/maps?cid=15696765585030183137'
+
+// Exact NAP as it appears on the Google Business Profile above — keep this
+// byte-for-byte consistent with GBP (name/address/phone mismatches actively
+// hurt local ranking). Geo pulled from the same listing.
+export const GEO = { lat: 34.2450286, lng: -118.5814663 }
 
 export const STEPS_HOW = [
   {

@@ -1,0 +1,6 @@
+# affordableairdirect.com — allow all legitimate crawlers, including AI
+# answer-engine/search crawlers (we want to be found and cited there too).
+User-agent: *
+Allow: /
+
+Sitemap: https://affordableairdirect.com/sitemap.xml

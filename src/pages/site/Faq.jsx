@@ -1,5 +1,6 @@
 import { FAQS } from '../../data/content.js'
 import { usePageMeta } from '../../lib/usePageMeta.js'
+import { useStructuredData } from '../../lib/useStructuredData.js'
 import CtaBand from '../../components/CtaBand.jsx'
 
 export default function Faq() {
@@ -7,6 +8,17 @@ export default function Faq() {
     'FAQ | Affordable Air Direct',
     'How much can you save buying HVAC direct? What is included in the installed price? Financing, service area, and how the instant quote works.',
   )
+  // Schema must exactly match what's visible on THIS page (every FAQ below,
+  // no more) — Google's structured data policy requires that 1:1 match.
+  useStructuredData('faq', {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: FAQS.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  })
   return (
     <>
       <div className="mx-auto max-w-3xl px-4 py-12">
