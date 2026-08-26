@@ -13,8 +13,9 @@ export default function Contact() {
   const steps = visibleSteps(answers)
 
   useEffect(() => {
-    if (!answers.system_type) navigate('/journey/system_type', { replace: true })
-  }, [answers.system_type, navigate])
+    if (!answers.zip) navigate('/journey/zip', { replace: true })
+    else if (!answers.system_type) navigate('/journey/system_type', { replace: true })
+  }, [answers.zip, answers.system_type, navigate])
 
   const submit = (e) => {
     e.preventDefault()

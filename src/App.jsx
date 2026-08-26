@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { initPixel, trackPageView } from './lib/tracking.js'
+import { trackFunnelView } from './lib/funnel.js'
 import Layout from './components/Layout.jsx'
 import Landing from './pages/Landing.jsx'
 import StoreHome from './pages/StoreHome.jsx'
 import Question from './pages/journey/Question.jsx'
+import Zip from './pages/journey/Zip.jsx'
 import Contact from './pages/journey/Contact.jsx'
 import Results from './pages/journey/Results.jsx'
 import Cart from './pages/Cart.jsx'
@@ -27,10 +29,18 @@ function ScrollToTop() {
 
 // Meta Pixel init once + a PageView on every route change. Applies to every
 // route, including /lp, so both surfaces get full tracking coverage.
+//
+// The funnel beacon rides the same route change. Doing it here rather than in
+// each step page is deliberate: every journey step is its own route, so one
+// central hook captures the whole path — and a step added to journey.js later
+// is measured automatically instead of being silently missing from the report.
 function PageTracker() {
   const { pathname } = useLocation()
   useEffect(() => { initPixel() }, [])
-  useEffect(() => { trackPageView() }, [pathname])
+  useEffect(() => {
+    trackPageView()
+    trackFunnelView()
+  }, [pathname])
   return null
 }
 
@@ -41,6 +51,7 @@ function MainSite() {
       <Routes>
         <Route path="/" element={<StoreHome />} />
         {/* funnel — fixed endpoints must precede the :stepId catch-all */}
+        <Route path="/journey/zip" element={<Zip />} />
         <Route path="/journey/contact" element={<Contact />} />
         <Route path="/journey/results" element={<Results />} />
         <Route path="/journey/:stepId" element={<Question />} />
@@ -55,7 +66,7 @@ function MainSite() {
         <Route path="/privacy" element={<Privacy />} />
         {/* legacy WordPress paths — keep old links + indexed URLs working */}
         <Route path="/privacy-policy" element={<Navigate to="/privacy" replace />} />
-        <Route path="/store" element={<Navigate to="/journey/system_type" replace />} />
+        <Route path="/store" element={<Navigate to="/journey/zip" replace />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Layout>

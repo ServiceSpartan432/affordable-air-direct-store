@@ -5,11 +5,15 @@ import { usePageMeta } from '../../lib/usePageMeta.js'
 export default function JourneyLayout({ current, stepIndex = 0, totalSteps = 5, title, subtitle, children }) {
   usePageMeta('Instant HVAC Quote | Affordable Air Direct')
   const total = totalSteps + 2 // questions + contact + results
+  // 'zip' is the service-area gate, which sits BEFORE the quote starts — it
+  // gets 0% rather than a step number, so the first real question is still
+  // "Step 1 of N" and nobody is told they're a third done for typing a ZIP.
   const position =
-    current === 'results' ? total : current === 'contact' ? totalSteps + 1 : stepIndex + 1
+    current === 'zip' ? 0 : current === 'results' ? total : current === 'contact' ? totalSteps + 1 : stepIndex + 1
   const pct = Math.round((position / total) * 100)
 
   const stageLabel =
+    current === 'zip' ? 'Service area' :
     current === 'results' ? 'Your options' : current === 'contact' ? 'Almost there' : `Step ${position} of ${total}`
 
   return (

@@ -57,7 +57,7 @@ export default function Header() {
                 </span>
               )}
             </Link>
-            <Link to="/journey/system_type" className="btn-primary hidden !px-4 !py-2.5 text-sm sm:inline-flex">
+            <Link to="/journey/zip" className="btn-primary hidden !px-4 !py-2.5 text-sm sm:inline-flex">
               Instant quote <IconArrowRight size={16} />
             </Link>
             {/* mobile menu button */}
@@ -80,7 +80,7 @@ export default function Header() {
                 {n.label}
               </NavLink>
             ))}
-            <Link to="/journey/system_type" onClick={() => setOpen(false)} className="btn-primary mt-2 w-full">
+            <Link to="/journey/zip" onClick={() => setOpen(false)} className="btn-primary mt-2 w-full">
               Get my instant quote <IconArrowRight size={17} />
             </Link>
           </nav>

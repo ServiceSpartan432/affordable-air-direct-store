@@ -10,7 +10,7 @@ export default function CtaBand() {
           <h2 className="text-2xl font-bold text-white">Ready to see your price?</h2>
           <p className="text-white/85">Instant, no-obligation quote — about two minutes, never a salesperson.</p>
         </div>
-        <Link to="/journey/system_type" className="btn-primary bg-white text-brand-teal-dark hover:bg-white/90">
+        <Link to="/journey/zip" className="btn-primary bg-white text-brand-teal-dark hover:bg-white/90">
           Get my instant quote <IconArrowRight size={18} />
         </Link>
       </div>

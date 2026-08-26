@@ -14,12 +14,15 @@ export default function Question() {
   const steps = visibleSteps(answers)
   const idx = steps.findIndex((s) => s.id === step?.id)
 
-  // guard: unknown step, or landing mid-journey without prior answers
+  // guard: unknown step, no ZIP yet, or landing mid-journey without prior
+  // answers. The ZIP check comes first and applies to every step — an ad that
+  // deep-links to /journey/system_type must still pass the service-area gate.
   useEffect(() => {
-    if (!step) navigate('/journey/system_type', { replace: true })
+    if (!answers.zip) navigate('/journey/zip', { replace: true })
+    else if (!step) navigate('/journey/system_type', { replace: true })
     else if (step.id !== 'system_type' && !answers.system_type)
       navigate('/journey/system_type', { replace: true })
-  }, [step, answers.system_type, navigate])
+  }, [step, answers.zip, answers.system_type, navigate])
 
   if (!step) return null
 
@@ -34,7 +37,7 @@ export default function Question() {
 
   const goBack = () => {
     if (idx > 0) navigate(`/journey/${steps[idx - 1].path}`)
-    else navigate('/')
+    else navigate('/journey/zip')
   }
 
   const selected = answers[step.id]

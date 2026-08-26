@@ -36,7 +36,7 @@ export default function Search() {
         <div className="card mt-6 p-10 text-center">
           <IconSearch size={28} className="mx-auto text-slate-300" />
           <p className="mt-3 text-slate-500">No match. Try “AC”, “furnace”, or “complete system”.</p>
-          <Link to="/journey/system_type" className="btn-primary mt-5">
+          <Link to="/journey/zip" className="btn-primary mt-5">
             Start my quote <IconArrowRight size={18} />
           </Link>
         </div>

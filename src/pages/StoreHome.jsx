@@ -42,7 +42,7 @@ export default function StoreHome() {
               installed price in about 2 minutes — no pushy sales visit, ever.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/journey/system_type" className="btn-primary">
+              <Link to="/journey/zip" className="btn-primary">
                 Get my instant quote <IconArrowRight size={18} />
               </Link>
               <a href={COMPANY.phoneHref} className="btn-ghost border-white/30 bg-white/5 text-white hover:border-brand-teal hover:text-brand-teal">
@@ -98,7 +98,7 @@ export default function StoreHome() {
           ))}
         </div>
         <div className="mt-8 text-center">
-          <Link to="/journey/system_type" className="btn-primary">Start step 1 now <IconArrowRight size={18} /></Link>
+          <Link to="/journey/zip" className="btn-primary">Start step 1 now <IconArrowRight size={18} /></Link>
         </div>
       </section>
 
@@ -199,7 +199,7 @@ export default function StoreHome() {
             <h2 className="text-2xl font-bold text-white">Start saving on your new HVAC system today</h2>
             <p className="text-white/85">Your instant, no-obligation quote takes about two minutes.</p>
           </div>
-          <Link to="/journey/system_type" className="btn-primary bg-white text-brand-teal-dark hover:bg-white/90">
+          <Link to="/journey/zip" className="btn-primary bg-white text-brand-teal-dark hover:bg-white/90">
             Instant same-day quote <IconArrowRight size={18} />
           </Link>
         </div>
