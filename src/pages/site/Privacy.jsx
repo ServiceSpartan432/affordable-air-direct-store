@@ -27,6 +27,13 @@ export default function Privacy() {
           We do not sell your personal information. We share it only with service providers who help us operate
           (for example, scheduling, email delivery, and payment or financing partners you choose to use).
         </Sec>
+        <Sec t="Calls and text messages">
+          If you check the consent box on our quote form, you agree that {COMPANY.name} may contact you by phone
+          call and text message — including using an autodialer or automated/prerecorded messages — at the number
+          you provide, for both servicing your request and marketing. Consent is not required to get a quote or
+          make a purchase. Message and data rates may apply; message frequency varies. Reply STOP to any text to
+          opt out, or contact us at {COMPANY.email} or {COMPANY.phone}.
+        </Sec>
         <Sec t="Your choices">
           You can request access to, correction of, or deletion of your personal information at any time by
           emailing {COMPANY.email} or calling {COMPANY.phone}. You can also disable cookies in your browser.

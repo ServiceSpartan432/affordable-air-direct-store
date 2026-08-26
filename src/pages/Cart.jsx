@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext.jsx'
 import { money, money2, tierLabel } from '../lib/quote.js'
 import { track, contactToUser } from '../lib/tracking.js'
+import { trackFunnel } from '../lib/funnel.js'
 import { usePageMeta } from '../lib/usePageMeta.js'
 import { INCLUDED, FINANCE, COMPANY } from '../data/config.js'
 import { SYSTEM_ICONS, IconCheck, IconArrowRight, IconShield } from '../components/icons.jsx'
@@ -92,6 +93,10 @@ export default function Cart() {
                       },
                       user: contactToUser(form),
                     })
+                    // NOTE: this form still files nothing server-side — it only
+                    // shows a confirmation. Logging it here at least makes the
+                    // size of that hole measurable while it is unfixed.
+                    trackFunnel('schedule_submit', { value: subtotal, items: items.length, filed: false })
                     setPlaced(true)
                   }}
                   className="mt-5 grid gap-4 sm:grid-cols-2"

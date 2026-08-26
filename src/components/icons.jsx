@@ -11,10 +11,14 @@ function base(props, children) {
 }
 
 // ---- System-type icons ----
+// Paired condenser (fan) + furnace (flame) — a complete system is both. Kept
+// deliberately in the same visual language as IconAC/IconFurnace below, not
+// a chat-bubble-shaped box with text lines (an earlier version read that way).
 export const IconComplete = (p) => base(p, <>
-  <rect x="3" y="4" width="8" height="7" rx="1.2" /><path d="M5 6.5h4M5 8.5h4" />
-  <rect x="13.5" y="13" width="7.5" height="7" rx="1.2" /><path d="M15.2 15h4.1M15.2 17h4.1M15.2 19h2" />
-  <path d="M8 11v3.5M8 14.5h5.5" />
+  <rect x="2.5" y="4" width="9.5" height="9.5" rx="1.5" />
+  <circle cx="7.25" cy="8.75" r="2.6" /><path d="M7.25 6.15v5.2M4.65 8.75h5.2" />
+  <rect x="12.5" y="10.5" width="9" height="9.5" rx="1.5" />
+  <path d="M17 13.2c1.05.75 1.2 1.7.6 2.5-.4.55-1.25.7-1.25 1.5 0 .65.5 1 .5 1-1.35-.15-2.25-1.1-2.25-2.3 0-1.4 1.25-1.8 2.4-2.7Z" />
 </>)
 
 export const IconAC = (p) => base(p, <>

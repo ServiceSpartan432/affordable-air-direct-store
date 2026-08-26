@@ -5,7 +5,7 @@ import { useQuote } from '../../context/QuoteContext.jsx'
 import { useCart } from '../../context/CartContext.jsx'
 import { buildQuote, money, money2, modelBullets, brandOf, tierLabel, equipmentImages } from '../../lib/quote.js'
 import { track, contactToUser } from '../../lib/tracking.js'
-import { sendQuoteEmail } from '../../lib/quoteEmail.js'
+import { trackFunnel } from '../../lib/funnel.js'
 import { visibleSteps } from '../../data/journey.js'
 import { INCLUDED, FINANCE } from '../../data/config.js'
 import { SYSTEM_ICONS, IconCheck, IconArrowLeft, IconStar } from '../../components/icons.jsx'
@@ -57,8 +57,11 @@ export default function Results() {
       },
       user: contactToUser(contact),
     })
-    // Email the customer their quote + notify the team (fire-and-forget).
-    sendQuoteEmail({ contact, systemKey, label, tons, options, selectedSku: opt.sku })
+    // Which tier they pick, and whether sticker shock stops them here — the
+    // price reveal is the other place this funnel plausibly loses people.
+    trackFunnel('select_tier', { tier: opt.tier, price: opt.price, systemKey })
+    // The quote email + team lead notification already fired at the contact
+    // step, the moment they submitted their info — not gated on Select.
     navigate('/cart')
   }
 
@@ -119,9 +122,13 @@ export default function Results() {
               </div>
 
               <ul className="mt-4 flex-1 space-y-1.5 text-sm">
+                {/* SEER is bold per the client; warranty terms get the same
+                    emphasis — they're the real differentiator between tiers,
+                    not a footnote next to the efficiency spec. */}
                 {bullets.map((b) => (
-                  <li key={b} className="flex items-start gap-2 text-slate-600">
-                    <IconCheck size={16} className="mt-0.5 shrink-0 text-brand-teal" /> {b}
+                  <li key={b.text} className={`flex items-start gap-2 ${b.kind === 'warranty' ? 'text-brand-navy' : 'text-slate-600'}`}>
+                    <IconCheck size={16} className={`mt-0.5 shrink-0 ${b.kind === 'warranty' ? 'text-brand-teal-dark' : 'text-brand-teal'}`} />
+                    <span className={b.kind === 'seer' || b.kind === 'warranty' ? 'font-semibold' : ''}>{b.text}</span>
                   </li>
                 ))}
               </ul>

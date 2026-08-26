@@ -4,7 +4,10 @@ import { track } from '../lib/tracking.js'
 const QuoteContext = createContext(null)
 const KEY = 'aad_quote_v2'
 
-const initial = { answers: {}, contact: { name: '', phone: '', email: '', zip: '' } }
+// Both consent boxes default checked (easy uncheck), matching the disclaimer
+// pattern the prior Contractor Commerce funnel actually used — it never had
+// an active opt-in checkbox at all, just passive disclaimer text.
+const initial = { answers: {}, contact: { name: '', phone: '', email: '', zip: '', smsConsent: true, policyAccepted: true } }
 
 export function QuoteProvider({ children }) {
   const [quote, setQuote] = useState(() => {

@@ -20,16 +20,29 @@ export default function Contact() {
     e.preventDefault()
     track('Lead', { custom: { content_name: 'Contact form' }, user: contactToUser(form) })
     if (!isDemoMode()) {
+      const json = JSON.stringify({ ...form, fbp: getCookie('_fbp'), fbc: getFbc() })
+      // Same guaranteed-delivery fallback as the quote funnel (see
+      // quoteEmail.js) — sendBeacon isn't subject to CORS preflight, so it
+      // still gets through even if fetch is blocked by a misconfigured
+      // origin whitelist.
+      const sendViaBeacon = () => {
+        try {
+          // Plain string, not a typed Blob — see quoteEmail.js for why a
+          // typed Blob still preflights and silently fails.
+          if (navigator.sendBeacon) navigator.sendBeacon(CONTACT_ENDPOINT, json)
+        } catch { /* nothing further we can do from the client */ }
+      }
       try {
         fetch(CONTACT_ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          // fbp/fbc so a later ServiceTitan sale can be tied back to this visit.
-          body: JSON.stringify({ ...form, fbp: getCookie('_fbp'), fbc: getFbc() }),
+          body: json,
           keepalive: true,
           credentials: 'omit',
-        }).catch(() => {})
-      } catch { /* never block the confirmation */ }
+        }).catch(sendViaBeacon)
+      } catch {
+        sendViaBeacon()
+      }
     }
     setSent(true)
   }

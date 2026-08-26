@@ -29,24 +29,23 @@ export default function Landing() {
 
   return (
     <div className="min-h-screen bg-brand-navy text-white">
-      {/* minimal top bar — logo + phone only, no nav to leak clicks */}
-      <header className="border-b border-white/10">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-          <img src={COMPANY.logo} alt={COMPANY.name} className="h-9 w-auto rounded bg-white/95 px-1.5 py-1" />
-          <a href={COMPANY.phoneHref} className="inline-flex items-center gap-1.5 text-sm font-bold text-white hover:text-brand-teal">
-            <IconPhone size={16} /> {COMPANY.phone}
-          </a>
-        </div>
-      </header>
-
+      {/* No header bar at all — even a non-clickable logo+border reads as
+          "site chrome" and invites people to look for an exit. The original,
+          proven-converting Contractor Commerce funnel had no branded header
+          either, just the offer itself. Click-to-call is still here (a real
+          conversion path, not a distraction) but framed as part of the offer,
+          not as navigation. */}
       <main className="relative overflow-hidden">
         <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-teal/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-brand-teal/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-3xl px-4 py-10 sm:py-14">
           {/* single promise, above the fold */}
-          <div className="text-center">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
+          <div className="flex flex-col items-center text-center">
+            <a href={COMPANY.phoneHref} className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-brand-teal">
+              <IconPhone size={13} /> Prefer to talk? Call {COMPANY.phone}
+            </a>
+            <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
               {copy.eyebrow}
             </span>
             <h1 className="mx-auto mt-5 max-w-xl text-3xl font-extrabold leading-tight sm:text-4xl">
@@ -55,34 +54,42 @@ export default function Landing() {
             <p className="mx-auto mt-3 max-w-md text-white/75">{copy.sub}</p>
           </div>
 
-          {/* the CTA — pick a system, straight into the funnel, no extra click */}
-          <div className="card mx-auto mt-8 max-w-xl bg-white p-5 text-brand-ink sm:p-6">
+          {/* trust, moved ABOVE the picker — most real visitors are on a phone
+              inside the Facebook/Instagram in-app browser, which leaves
+              noticeably less visible height than a normal mobile tab. This
+              used to run below all 4 options, meaning most people never
+              scrolled far enough to see it before deciding whether to engage. */}
+          <div className="mx-auto mt-5 flex max-w-xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/70">
+            <span className="inline-flex items-center gap-1.5"><IconStar size={15} className="text-brand-cta" /> {RATING.stars}/5 from {RATING.count} reviews</span>
+            <span className="inline-flex items-center gap-1.5"><IconShield size={15} className="text-brand-teal" /> Licensed #{COMPANY.license}</span>
+            <span className="inline-flex items-center gap-1.5"><IconCheck size={15} className="text-brand-teal" /> 100% satisfaction guarantee</span>
+          </div>
+
+          {/* the CTA — pick a system, straight into the funnel, no extra click.
+              2-col grid on mobile (compact — fits above the fold even inside
+              an in-app browser's shrunken viewport); reverts to the roomier
+              full-width row layout from sm: up, where height isn't the
+              constraint. */}
+          <div className="card mx-auto mt-6 max-w-xl bg-white p-5 text-brand-ink sm:p-6">
             <p className="text-center text-sm font-semibold text-brand-navy">What are you looking for?</p>
-            <div className="mt-4 space-y-2.5">
+            <div className="mt-4 grid grid-cols-2 gap-2.5 sm:grid-cols-1">
               {SYSTEM_OPTIONS.map((s) => {
                 const Icon = SYSTEM_ICONS[s.icon]
                 return (
                   <button key={s.value} onClick={() => pick(s.value)}
-                    className="group flex w-full items-center gap-3 rounded-xl border border-slate-200 p-3.5 text-left transition hover:border-brand-teal hover:bg-brand-mist">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-brand-mist text-brand-navy group-hover:bg-brand-teal group-hover:text-white">
-                      <Icon size={24} />
+                    className="group flex flex-col items-center gap-1.5 rounded-xl border border-slate-200 p-3 text-center transition hover:border-brand-teal hover:bg-brand-mist sm:w-full sm:flex-row sm:gap-3 sm:p-3.5 sm:text-left">
+                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-brand-mist text-brand-navy group-hover:bg-brand-teal group-hover:text-white sm:h-11 sm:w-11">
+                      <Icon size={22} />
                     </span>
                     <span>
-                      <span className="block font-semibold text-brand-navy">{s.label}</span>
-                      <span className="block text-sm text-slate-500">{s.hint}</span>
+                      <span className="block text-sm font-semibold leading-tight text-brand-navy sm:text-base">{s.label}</span>
+                      <span className="block text-xs leading-tight text-slate-500 sm:text-sm">{s.hint}</span>
                     </span>
-                    <IconArrowRight size={18} className="ml-auto text-slate-300 group-hover:text-brand-teal" />
+                    <IconArrowRight size={18} className="hidden text-slate-300 group-hover:text-brand-teal sm:ml-auto sm:block" />
                   </button>
                 )
               })}
             </div>
-          </div>
-
-          {/* condensed trust — no scrolling required to see it */}
-          <div className="mx-auto mt-6 flex max-w-xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-white/70">
-            <span className="inline-flex items-center gap-1.5"><IconStar size={15} className="text-brand-cta" /> {RATING.stars}/5 from {RATING.count} reviews</span>
-            <span className="inline-flex items-center gap-1.5"><IconShield size={15} className="text-brand-teal" /> Licensed #{COMPANY.license}</span>
-            <span className="inline-flex items-center gap-1.5"><IconCheck size={15} className="text-brand-teal" /> 100% satisfaction guarantee</span>
           </div>
         </div>
       </main>

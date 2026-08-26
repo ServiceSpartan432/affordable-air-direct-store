@@ -7,7 +7,11 @@ export default function Footer() {
     <footer className="mt-16 bg-brand-navy-deep text-slate-300">
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <img src={COMPANY.logo} alt={`${COMPANY.name} logo`} className="h-12 w-auto brightness-0 invert" />
+          {/* brightness-0/invert (removed) crushes our multi-color logo into
+              an unrecognizable white blob — that trick only works for a
+              plain monochrome mark. Same white-pill treatment the /lp header
+              uses successfully on this same dark background. */}
+          <img src={COMPANY.logo} alt={`${COMPANY.name} logo`} className="h-12 w-auto rounded bg-white/95 px-2 py-1.5" />
           <p className="mt-4 text-sm leading-relaxed text-slate-400">
             At {COMPANY.name}, we keep it simple: no salespeople, just direct, affordable, quality HVAC.
           </p>

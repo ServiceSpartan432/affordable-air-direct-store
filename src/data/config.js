@@ -9,7 +9,7 @@ export const COMPANY = {
   address: '9614 Cozycroft Ave # F, Chatsworth, CA 91311',
   license: '1081403',
   mapHref: 'https://maps.app.goo.gl/4TZ5yAGvNeDW9JdCA',
-  logo: 'https://affordableairdirect.com/wp-content/uploads/2024/05/Affordable-air-direct-Favicon-e1738786236559-300x104.png',
+  logo: 'https://affordableairdirect.com/logo.png',
   socials: {
     facebook: 'http://facebook.com/affordableairdirect',
     x: 'https://x.com/AffordableAirDi',
@@ -44,6 +44,12 @@ export const META = {
 // Endpoint that emails the customer their quote + notifies the team.
 export const QUOTE_ENDPOINT =
   import.meta.env.VITE_QUOTE_URL || 'https://capi.affordableairdirect.com/api/quote'
+
+// First-party funnel telemetry (step-by-step drop-off). Same host as the quote
+// endpoint so it is first-party and covered by the same CORS rule. Set
+// VITE_FUNNEL_URL="" at build time to compile the beacons out entirely.
+export const FUNNEL_ENDPOINT =
+  import.meta.env.VITE_FUNNEL_URL ?? 'https://capi.affordableairdirect.com/api/funnel'
 
 // Absolute base for equipment images (emails need absolute URLs). The store
 // takes over the whole site, so images live at the root domain's /equipment.
