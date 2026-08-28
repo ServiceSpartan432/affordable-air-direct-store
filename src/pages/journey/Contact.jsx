@@ -5,6 +5,7 @@ import { useQuote } from '../../context/QuoteContext.jsx'
 import { visibleSteps } from '../../data/journey.js'
 import { buildQuote } from '../../lib/quote.js'
 import { track, contactToUser } from '../../lib/tracking.js'
+import { sendQuoteEmail } from '../../lib/quoteEmail.js'
 import { IconArrowLeft, IconArrowRight, IconShield } from '../../components/icons.jsx'
 
 export default function Contact() {
@@ -20,7 +21,7 @@ export default function Contact() {
   const submit = (e) => {
     e.preventDefault()
     // Lead — the key conversion. Value = the "most popular" matched option.
-    const { options, label } = buildQuote(answers)
+    const { systemKey, tons, options, label } = buildQuote(answers)
     const featured = options[options.length >= 3 ? 1 : 0]
     track('Lead', {
       custom: featured
@@ -28,6 +29,20 @@ export default function Contact() {
         : {},
       user: contactToUser(contact),
     })
+    // Email the customer their quote and notify the team (fire-and-forget).
+    //
+    // THIS IS THE LINE THAT WENT MISSING. It used to live in Results.jsx choose(),
+    // firing only when somebody picked a tier. The telemetry commit removed that
+    // import to move the send here — earlier, so a customer who gives us their
+    // details but never picks a tier is still a lead — and the move was never
+    // finished. sendQuoteEmail was left defined and called from nowhere, so from
+    // 26 Aug every funnel completion silently produced no lead, no email and no
+    // ServiceTitan booking. Nothing errored: the funnel looked healthy the whole
+    // time, with people reaching the contact step and simply vanishing.
+    //
+    // No selectedSku here on purpose — nothing has been chosen yet at this point,
+    // and quoteEmail.js already falls back to the featured option for the value.
+    sendQuoteEmail({ contact, systemKey, label, tons, options })
     navigate('/journey/results')
   }
 
