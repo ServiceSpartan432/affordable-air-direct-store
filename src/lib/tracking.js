@@ -27,12 +27,28 @@ export function initPixel() {
     s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js')
   /* eslint-enable */
-  // Limited Data Use — Meta's actual CCPA/CPRA (CA/CO/CT) mechanism: this event
-  // is excluded from ad personalization / audience building even though it
-  // still counts for measurement. Country/state = 0,0 tells Meta to detect
-  // the visitor's location itself and apply the restriction only where the
-  // law actually requires it (a no-op everywhere else). Must run before init.
-  window.fbq('dataProcessingOptions', ['LDU'], 0, 0)
+  // LIMITED DATA USE. 0,0 tells Meta to geo-detect and apply LDU only in the
+  // states that require it — CA, CO, CT, DE, FL, MT, NE, NH, NJ, OR, TX, MN, MD,
+  // RI (Meta's list, checked 2026-09-02). Must run before init.
+  //
+  // The cost is real and worth knowing: where LDU applies, the event still counts
+  // for measurement but Meta will NOT use it for ad personalisation, Custom
+  // Audiences, Lookalikes or retargeting. Our whole service area is California,
+  // so every genuine customer is excluded from audience building while much of
+  // our out-of-state traffic is not — which biases Meta's learning away from the
+  // people we can sell to.
+  //
+  // Kept ON by default anyway: see the long note in aha-team-hub/lib/metaCapi.ts.
+  // Short version — we are far below the CCPA thresholds so it is probably not
+  // required, but our published privacy policy promises we share data "only with
+  // service providers", and LDU is what keeps Meta in that role. Both need
+  // settling before this changes.
+  //
+  // Flip with VITE_META_LDU=off at build time, AND META_LDU=off on the hub: a
+  // deduplicated event that carries LDU on either leg is still restricted.
+  if (String(import.meta.env.VITE_META_LDU || 'on').toLowerCase() !== 'off') {
+    window.fbq('dataProcessingOptions', ['LDU'], 0, 0)
+  }
   window.fbq('init', META.pixelId)
   pixelReady = true
 }
