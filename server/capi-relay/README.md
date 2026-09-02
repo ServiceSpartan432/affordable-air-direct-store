@@ -1,57 +1,28 @@
-# Meta Conversions API relay (VPS)
+# Meta Conversions API — MOVED
 
-Tiny zero-dependency Node service. The store (browser) POSTs events here; this
-service hashes the PII, adds the real client IP + user-agent, and forwards to
-Meta. **The CAPI token lives only in this service's `.env` — never in the
-browser, never in git.**
+**There is no relay in this repo any more. Do not re-add one.**
 
-## Deploy on the VPS (alongside aha-dashboard / pm2)
+The store posts its CAPI events to `https://capi.affordableairdirect.com/api/capi`
+(see `capiUrl` in `src/data/config.js`). That hostname resolves to the
+**aha-team-hub** container, not to anything here:
 
-```bash
-# 1. Copy this folder to the VPS, e.g. /opt/aad-capi-relay
-scp -r server/capi-relay user@YOUR_VPS:/opt/aad-capi-relay
+| | |
+|---|---|
+| Route | `aha-team-hub/app/api/capi/route.ts` |
+| Payload builder | `aha-team-hub/lib/metaCapi.ts` → `buildUserData()` |
+| Pixel id / CAPI token | `/opt/aha-team-hub/.env` on the VPS |
 
-# 2. Configure secrets
-cd /opt/aad-capi-relay
-cp .env.example .env
-nano .env            # set META_PIXEL_ID and META_CAPI_TOKEN
+## Why this file exists instead of the code
 
-# 3. Run under pm2 (no npm install needed — uses only Node built-ins + fetch)
-pm2 start index.js --name aad-capi-relay
-pm2 save
-```
+A standalone Node relay used to live here (`index.js`, run under pm2). It was
+superseded by the hub route and never deployed again — `/opt/aad-capi-relay` does
+not exist, no pm2 process runs it, and nothing outside Docker listens on the box.
 
-The service listens on `PORT` (default 8788). Put it behind your existing nginx
-on its own subdomain so the browser can reach it over HTTPS:
+It was deleted on 2026-09-02 because it had become actively misleading: its
+`buildUserData()` had drifted out of date and sent **no location match keys at
+all** (no `zp`, `ct`, `st`, `country`), while the live hub builder sends all four.
+Reading this folder to answer "what do we send Meta?" gives you the wrong answer,
+and that is exactly what happened during an investigation into out-of-area ad
+targeting.
 
-```nginx
-server {
-  server_name capi.affordableairdirect.com;
-  location / {
-    proxy_pass http://127.0.0.1:8788;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $remote_addr;   # real client IP for match quality
-  }
-  # add certbot TLS as you do for the other sites
-}
-```
-
-Then point the store at it (in the store repo):
-
-```
-VITE_CAPI_URL=https://capi.affordableairdirect.com/capi
-VITE_META_PIXEL_ID=<your pixel id>
-```
-
-## Test before going live
-
-1. In Events Manager → **Test Events**, copy the `TESTxxpixel` code into `.env`
-   as `META_TEST_CODE`, then `pm2 restart aad-capi-relay`.
-2. Walk the store quote flow. You should see PageView / ViewContent / Lead /
-   Schedule appear in Test Events, each marked **Deduplicated with browser** (that
-   confirms the Pixel + CAPI pairing).
-3. Remove `META_TEST_CODE` and `pm2 restart` to send live events.
-
-## Health check
-
-`GET /health` → `{ "ok": true }`
+If you need to change what goes to Meta, change `lib/metaCapi.ts` in aha-team-hub.
