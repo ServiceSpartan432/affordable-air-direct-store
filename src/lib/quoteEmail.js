@@ -4,6 +4,7 @@ import { QUOTE_ENDPOINT } from '../data/config.js'
 import { tierLabel, brandOf, modelBullets, equipmentImages } from './quote.js'
 import { isDemoMode } from './demoMode.js'
 import { getCookie, getFbc } from './tracking.js'
+import { getOppref, getSourceUrl } from './adAttribution.js'
 
 export function sendQuoteEmail({ contact, systemKey, label, tons, options, selectedSku }) {
   if (!QUOTE_ENDPOINT) return
@@ -24,6 +25,11 @@ export function sendQuoteEmail({ contact, systemKey, label, tons, options, selec
     // be tied back to this exact visit — see lib/metaRevenueSync.ts (server).
     fbp: getCookie('_fbp'),
     fbc: getFbc(),
+    // OpenAI Ads click id, captured on the landing page and held in a cookie —
+    // by the time anyone reaches the contact step the query string is gone.
+    // The server reports the conversion; this only carries the id to it.
+    oppref: getOppref(),
+    sourceUrl: getSourceUrl(),
     options: options.map((o) => ({
       sku: o.sku,
       tier: o.tier,

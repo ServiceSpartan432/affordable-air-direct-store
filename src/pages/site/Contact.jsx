@@ -3,6 +3,7 @@ import { COMPANY, QUOTE_ENDPOINT } from '../../data/config.js'
 import { usePageMeta } from '../../lib/usePageMeta.js'
 import { track, contactToUser, getCookie, getFbc } from '../../lib/tracking.js'
 import { isDemoMode } from '../../lib/demoMode.js'
+import { getOppref, getSourceUrl } from '../../lib/adAttribution.js'
 import { IconPhone, IconCheck, IconArrowRight } from '../../components/icons.jsx'
 
 // Contact endpoint lives next to the quote endpoint on the API host.
@@ -20,7 +21,13 @@ export default function Contact() {
     e.preventDefault()
     track('Lead', { custom: { content_name: 'Contact form' }, user: contactToUser(form) })
     if (!isDemoMode()) {
-      const json = JSON.stringify({ ...form, fbp: getCookie('_fbp'), fbc: getFbc() })
+      const json = JSON.stringify({
+        ...form,
+        fbp: getCookie('_fbp'),
+        fbc: getFbc(),
+        oppref: getOppref(),
+        sourceUrl: getSourceUrl(),
+      })
       // Same guaranteed-delivery fallback as the quote funnel (see
       // quoteEmail.js) — sendBeacon isn't subject to CORS preflight, so it
       // still gets through even if fetch is blocked by a misconfigured

@@ -4,7 +4,13 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import { CartProvider } from './context/CartContext.jsx'
 import { QuoteProvider } from './context/QuoteContext.jsx'
+import { captureOppref } from './lib/adAttribution.js'
 import './index.css'
+
+// Before anything renders and before the router touches the location: the
+// OpenAI click id lives on the landing URL only, and it is the one thing that
+// ties a lead back to the ad that paid for it.
+captureOppref()
 
 // Clean URLs (no #). basename follows the Vite base so the GH Pages demo
 // (subpath) and the root-domain production build both work.
