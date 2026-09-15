@@ -147,6 +147,15 @@ h1{font-size:clamp(30px,6vw,46px);font-weight:800;letter-spacing:-.02em;line-hei
 .say p{margin:0 0 0;font-size:15.5px}
 .say p + p{margin-top:8px}
 
+/* legal gate */
+.gate{
+  margin-top:16px;padding:16px 18px;background:var(--alert-soft);
+  border:1px solid var(--alert);border-left-width:4px;border-radius:0 10px 10px 0
+}
+.gate .lab{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--alert);display:block;margin-bottom:8px;font-weight:600}
+.gate p{margin:0;font-size:15.5px}
+.gate p + p{margin-top:9px}
+
 /* review cards */
 .reviews{display:grid;gap:12px;margin-top:16px}
 @media(min-width:680px){.reviews{grid-template-columns:1fr 1fr}}
@@ -211,11 +220,11 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
 <header class="mast">
   <p class="kicker">Weekly Sales Meeting / Tuesday 09.15.2026</p>
   <h1>Tuesday Sales Meeting Run Sheet</h1>
-  <p class="dek">Sixteen items, every link live. Tick each one off as you go. Your progress saves in this browser, so you can close the tab and pick it back up.</p>
+  <p class="dek">Seventeen items, every link live. Tick each one off as you go. Your progress saves in this browser, so you can close the tab and pick it back up.</p>
   <div class="meta">
     <span><b>Host</b> Jeremiah</span>
     <span><b>Room</b> Department heads + inside coordinators</span>
-    <span><b>Run time</b> about 90 minutes</span>
+    <span><b>Run time</b> about 100 minutes</span>
     <span><b>License</b> #1081403</span>
   </div>
   <nav class="quick" aria-label="Quick links">
@@ -682,6 +691,77 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
   </div>
 </section>
 
+
+<!-- 17 -->
+<section class="item" id="i17">
+  <div class="rail"><div class="num">17</div><input class="tick" type="checkbox" id="chk17" aria-label="Mark item 17 done"><div class="mins">10m</div></div>
+  <div class="body">
+    <h2>New pilot: recording the in home sales call</h2>
+    <p class="why">We cannot coach what we never heard. A ride along changes the call, because the rep performs for you. A recording is the actual call. Two week pilot, three volunteers, one call reviewed together every week.</p>
+
+    <div class="gate">
+      <span class="lab">Read this before anything else</span>
+      <p>California is an all party consent state. Penal Code 632 makes it a crime to record a confidential conversation unless <b>everyone</b> in it agrees. A homeowner's living room is about as confidential as it gets.</p>
+      <p>What a violation costs: a misdemeanor, up to a year in county jail and a $2,500 fine. Then the civil side under 637.2, where the homeowner can collect the greater of <b>$5,000 per recording</b> or three times actual damages, and they do not have to prove any harm at all. Ten unconsented calls is a $50,000 floor.</p>
+      <p>So there is exactly one rule, and it is not a preference. <b>No consent, no recording.</b> Nobody leaves a phone running in a pocket. Nobody records and asks later.</p>
+    </div>
+
+    <p><b>How consent works on the job.</b> Start the recording first, then ask on tape, so the yes is captured in the file:</p>
+    <div class="say">
+      <span class="lab">Word for word, at the table</span>
+      <p>"Before we get started, I record my appointments so my manager can review my work and I keep getting better at this. It stays inside our company and it never goes anywhere else. Are you okay with me recording? If you would rather I didn't, that is completely fine and it changes nothing about your quote."</p>
+      <p>Wait for an audible yes. If anyone else is in the room, you need their yes too. If the answer is no, say "no problem," stop the recording in front of them, and run the call. Do not ask twice.</p>
+    </div>
+
+    <p><b>The pilot, spelled out:</b></p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Piece</th><th>How it runs</th></tr></thead>
+        <tbody>
+          <tr><td><b>Who</b></td><td>Three volunteers. One near the top of the board, one in the middle, one newer. Not the bottom three, or it reads as discipline and nobody signs up.</td></tr>
+          <tr><td><b>How long</b></td><td>Two weeks, then we decide. Ends 9.29.</td></tr>
+          <tr><td><b>Tool</b></td><td>Otter on the phone. Already in our stack and already running the QC meeting, so no new subscription and no new login.</td></tr>
+          <tr><td><b>Volume</b></td><td>Three recorded calls per rep per week. Sold and unsold both. The lost ones teach more.</td></tr>
+          <tr><td><b>Review</b></td><td>Twenty minutes at the 8am training. One call, whole room, rep picks which one.</td></tr>
+          <tr><td><b>Storage</b></td><td>One Drive folder, restricted to Jeremiah, Gene and Donna. Nothing leaves the company, nothing gets posted, nothing goes in a group text.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p><b>What we listen for.</b> Same five every time, so it is a scorecard and not an opinion:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th class="n">#</th><th>What we grade</th><th>The tell</th></tr></thead>
+        <tbody>
+          <tr><td class="n">1</td><td>First five minutes</td><td>Did they build a relationship, or walk in and start talking about equipment.</td></tr>
+          <tr><td class="n">2</td><td>Discovery</td><td>How many questions did they ask before the first number came out of their mouth.</td></tr>
+          <tr><td class="n">3</td><td>Options</td><td>Were all three presented, or did the rep quietly decide which one this customer could afford.</td></tr>
+          <tr><td class="n">4</td><td>Financing</td><td>Was a monthly payment actually quoted, and was deferred interest disclosed out loud.</td></tr>
+          <tr><td class="n">5</td><td>The ask</td><td>Did they ask for the sale, and how many times. Most lost calls never got asked once.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="say">
+      <span class="lab">Say this to the room, out loud</span>
+      <p>Nothing from these two weeks goes in anybody's file. No writeups, no pay changes, no ammunition. It is a coaching tool for the pilot window and I am telling you that in front of everybody so you can hold me to it.</p>
+    </div>
+
+    <p><b>What makes it permanent.</b> Two things, decided now so we do not argue about it in October: close rate on recorded calls against the board over the same two weeks, and whether reps start asking to hear their own calls back without being told to. The second one matters more than the first.</p>
+
+    <div class="links">
+      <a href="https://otter.ai" target="_blank" rel="noopener">Otter <em>RECORDING APP</em></a>
+      <a href="https://docs.google.com/document/d/1GxvPyBX55GjVrSx4uusifPmVXgqvk1WKqQ4dDBw_IKA/edit" target="_blank" rel="noopener">Estimate authorization paragraph <em>WRITTEN BACKSTOP</em></a>
+      <a href="https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=PEN&sectionNum=632" target="_blank" rel="noopener">Penal Code 632 <em>STATUTE</em></a>
+    </div>
+
+    <div class="say">
+      <span class="lab">Decide before this item closes</span>
+      <p>Three names on the board. A start date. Who owns the folder. If those three things are not settled in the next ten minutes, this pilot does not happen, it just gets talked about again next Tuesday.</p>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <section class="close">
@@ -693,6 +773,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
     <li>Install and service leads: photos to Ryan for the Simi Valley Google profile.</li>
     <li>Duct cleaning spiff: tech name goes on every estimate so payroll can trace it.</li>
     <li>Every open estimate older than two weeks gets a call today, not Friday.</li>
+    <li>Recorder pilot: three names, a start date, and a folder owner before anybody stands up.</li>
   </ul>
   <button class="resetbtn" id="reset" type="button">Clear all checkmarks</button>
 </section>
