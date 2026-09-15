@@ -5,65 +5,65 @@
 <style>
 :root{
   --paper:#ffffff;
-  --ground:#f3f7f9;
-  --ink:#1b2a37;
-  --ink-2:#44586a;
-  --ink-3:#7c8d9c;
-  --rule:#cbd9e1;
-  --rule-soft:#e3ecf0;
-  --gauge:#0b7f89;
-  --gauge-soft:#e0f1f3;
-  --navy:#123b5b;
-  --brass:#dc6f18;
-  --brass-soft:#fdefe2;
-  --alert:#a3302a;
-  --alert-soft:#fbeae8;
-  --good:#0b7f89;
-  --good-soft:#e0f1f3;
-  --shadow:0 1px 2px rgba(18,59,91,.07), 0 8px 24px -16px rgba(18,59,91,.4);
+  --ground:#f2f4f1;
+  --ink:#221c1a;
+  --ink-2:#554d49;
+  --ink-3:#877e79;
+  --rule:#d4d9d2;
+  --rule-soft:#e6eae3;
+  --gauge:#0f6938;
+  --gauge-soft:#e3efe7;
+  --navy:#2c1314;
+  --brass:#c0161a;
+  --brass-soft:#fdeceb;
+  --alert:#c0161a;
+  --alert-soft:#fdeceb;
+  --good:#0f6938;
+  --good-soft:#e3efe7;
+  --shadow:0 1px 2px rgba(44,19,20,.07), 0 8px 24px -16px rgba(44,19,20,.4);
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   --sans:"Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;
   --display:"Archivo","Source Sans 3",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --paper:#132430;
-    --ground:#0b161e;
-    --ink:#e6eef2;
-    --ink-2:#aec0cc;
-    --ink-3:#8296a4;
-    --rule:#264050;
-    --rule-soft:#1b2f3c;
-    --gauge:#4cc6d2;
-    --gauge-soft:#0e2f35;
-    --navy:#7fb3d5;
-    --brass:#f5852c;
-    --brass-soft:#2e1f12;
-    --alert:#e58a83;
-    --alert-soft:#33191a;
-    --good:#4cc6d2;
-    --good-soft:#0e2f35;
-    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+    --paper:#1d1a18;
+    --ground:#121110;
+    --ink:#efeae6;
+    --ink-2:#c0b8b2;
+    --ink-3:#928882;
+    --rule:#3a3431;
+    --rule-soft:#282422;
+    --gauge:#5cbe83;
+    --gauge-soft:#132a1d;
+    --navy:#e8ddd8;
+    --brass:#f2635f;
+    --brass-soft:#2c1717;
+    --alert:#f2635f;
+    --alert-soft:#2c1717;
+    --good:#5cbe83;
+    --good-soft:#132a1d;
+    --shadow:0 1px 2px rgba(0,0,0,.45), 0 8px 24px -16px rgba(0,0,0,.85);
   }
 }
 :root[data-theme="dark"]{
-  --paper:#132430;
-  --ground:#0b161e;
-  --ink:#e6eef2;
-  --ink-2:#aec0cc;
-  --ink-3:#8296a4;
-  --rule:#264050;
-  --rule-soft:#1b2f3c;
-  --gauge:#4cc6d2;
-  --gauge-soft:#0e2f35;
-  --navy:#7fb3d5;
-  --brass:#f5852c;
-  --brass-soft:#2e1f12;
-  --alert:#e58a83;
-  --alert-soft:#33191a;
-  --good:#4cc6d2;
-  --good-soft:#0e2f35;
-  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  --paper:#1d1a18;
+  --ground:#121110;
+  --ink:#efeae6;
+  --ink-2:#c0b8b2;
+  --ink-3:#928882;
+  --rule:#3a3431;
+  --rule-soft:#282422;
+  --gauge:#5cbe83;
+  --gauge-soft:#132a1d;
+  --navy:#e8ddd8;
+  --brass:#f2635f;
+  --brass-soft:#2c1717;
+  --alert:#f2635f;
+  --alert-soft:#2c1717;
+  --good:#5cbe83;
+  --good-soft:#132a1d;
+  --shadow:0 1px 2px rgba(0,0,0,.45), 0 8px 24px -16px rgba(0,0,0,.85);
 }
 *{box-sizing:border-box}
 body{
@@ -79,10 +79,15 @@ h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
 /* masthead */
 .mast{padding-block:32px 24px}
 .lockup{padding-bottom:16px;margin-bottom:20px;border-bottom:3px solid var(--gauge)}
-.wordmark{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;line-height:1}
-.wm-1{font-family:var(--display);font-weight:800;font-size:clamp(24px,5vw,34px);letter-spacing:-.015em;color:var(--navy)}
-.wm-2{font-family:var(--display);font-weight:600;font-size:clamp(14px,2.6vw,18px);letter-spacing:.18em;text-transform:uppercase;color:var(--gauge)}
-.lic{margin:9px 0 0;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.02em}
+.wordmark{display:inline-flex;flex-direction:column;align-items:center;gap:0;line-height:1;
+  border:2px solid var(--navy);border-radius:10px;overflow:hidden;background:var(--paper);max-width:100%}
+.wm-1{font-family:var(--display);font-weight:800;font-size:clamp(22px,5vw,32px);letter-spacing:.02em;
+  color:#fff;background:var(--gauge);padding:9px 20px 8px;width:100%;text-align:center}
+.wm-2{font-family:var(--display);font-weight:700;font-size:clamp(12px,2.4vw,15px);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--navy);padding:7px 20px 6px;text-align:center}
+.wm-3{font-family:var(--mono);font-weight:500;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:#fff;background:var(--navy);padding:5px 20px;width:100%;text-align:center}
+.lic{margin:11px 0 0;font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.02em}
 .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);margin:0 0 10px;font-weight:600}
 h1{font-size:clamp(30px,6vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.05;color:var(--navy)}
 .dek{margin:12px 0 0;color:var(--ink-2);max-width:62ch;font-size:17px}
@@ -229,9 +234,10 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
   <div class="lockup">
     <div class="wordmark">
       <span class="wm-1">AFFORDABLE</span>
-      <span class="wm-2">Heating and Air</span>
+      <span class="wm-2">&#9733; Heating and Air &#9733;</span>
+      <span class="wm-3">Affordable HVAC Solutions</span>
     </div>
-    <p class="lic">9601 Cozycroft Ave, Unit 1, Chatsworth CA 91311 / CA License #1081403</p>
+    <p class="lic">9601 Cozycroft Ave, Unit 1, Chatsworth CA 91311 / Call or text (818) 722-1332 / CA License #1081403</p>
   </div>
   <p class="kicker">Weekly Sales Meeting / In-Home Technicians</p>
   <h1>Tuesday Sales Meeting Run Sheet</h1>
@@ -244,7 +250,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
   </div>
   <nav class="quick" aria-label="Quick links">
     <a href="https://drive.google.com/drive/folders/1_7Ry8YAs36JKKWo4jjA56aPYXIiaQVtS" target="_blank" rel="noopener">Content Portal <span>Drive</span></a>
-    <a href="https://docs.google.com/spreadsheets/d/1sxkPKH1JYWqGCjGOY7M6NOBw2rTcG3iq-nfnJMsPywQ/edit" target="_blank" rel="noopener">Technician Scorecard <span>Sheets</span></a>
+    <a href="https://go.servicetitan.com/?__tenant=affordableheatingandair" target="_blank" rel="noopener">Technician Scorecard <span>ServiceTitan</span></a>
     <a href="https://drive.google.com/file/d/1LQQBVEfmiCynr-HocS6NlrYIjnEefLOd/view" target="_blank" rel="noopener">Financing Cheat Sheet <span>PDF</span></a>
     <a href="https://drive.google.com/file/d/1E-x_nKYv8tOrfBAk7PbdSjwCLqFzicJG/view" target="_blank" rel="noopener">Carrier AHRI Matchups <span>PDF</span></a>
     <a href="https://www.coolcalc.com/" target="_blank" rel="noopener">Cool Calc <span>Manual J/S/D</span></a>
@@ -335,11 +341,9 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
   <div class="rail"><div class="num">03</div><input class="tick" type="checkbox" id="chk3" aria-label="Mark item 3 done"><div class="mins">10m</div></div>
   <div class="body">
     <h2>The numbers: technician scorecard</h2>
-    <p class="why">Pull the scorecard up on the screen. Close rate, estimates ran, estimates sold, average ticket. Nobody gets talked about, everybody gets shown.</p>
+    <p class="why">Pull the scorecard up in ServiceTitan on the screen. Close rate, estimates ran, estimates sold, average ticket. Nobody gets talked about, everybody gets shown.</p>
     <div class="links">
-      <a href="https://docs.google.com/spreadsheets/d/1sxkPKH1JYWqGCjGOY7M6NOBw2rTcG3iq-nfnJMsPywQ/edit" target="_blank" rel="noopener">Technician Scorecard 2026 <em>UPDATED 9.14</em></a>
-      <a href="https://docs.google.com/spreadsheets/d/1t_rQQ_3Uors30qra-34UXppWnLzbk0972LS0_voBuS4/edit" target="_blank" rel="noopener">CSR / Dispatch Scorecard 2026 <em>SHEETS</em></a>
-      <a href="https://docs.google.com/spreadsheets/d/1ZchpI-aPUQLM8xPovyeUlUKbq2b4f7-UCRpO9MCll-Q/edit" target="_blank" rel="noopener">Operations Calculator <em>SHEETS</em></a>
+      <a href="https://go.servicetitan.com/?__tenant=affordableheatingandair" target="_blank" rel="noopener">Technician Scorecard <em>IN SERVICETITAN</em></a>
     </div>
     <div class="say">
       <span class="lab">Run it like this</span>
@@ -411,6 +415,8 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
       <span class="lab">Run it like this</span>
       <p>Ask the room to name the topic they want first. Whatever gets the most hands is next week. Put it on the calendar in the meeting, not after it.</p>
     </div>
+    <p><b>And a resource between trainings: the AI coach.</b> You do not have to wait until the next 8am to get an answer. The AI coach is there for the question you have standing in somebody's hallway: how do I word this option, what do I say when they tell me they want to think about it, what does this rebate actually cover, how do I explain SEER2 without losing them. Ask it like you would ask a manager, in your own words.</p>
+    <p>It is a coach, not a decision maker. Pricing, approvals, and anything a customer is going to hold us to still come from a human here.</p>
   </div>
 </section>
 
@@ -759,7 +765,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
 </section>
 
 <p class="foot">
-  Built from live sources on 9.15.2026: NearbyNow and Google review notifications from the past 7 days, the Technician Scorecard 2026 (updated 9.14), the Content Portal, the March 2026 financing cheat sheet, Wells Fargo plan codes effective 3.2.2026, and the published ServiceTitan engineering and maintenance form definitions.<br>
+  Built from live sources on 9.15.2026: NearbyNow and Google review notifications from the past 7 days, the ServiceTitan technician scorecard, the Content Portal, the March 2026 financing cheat sheet, Wells Fargo plan codes effective 3.2.2026, and the published ServiceTitan engineering and maintenance form definitions.<br>
   Payment figures are the stated payment factor times $14,500 and are for internal training. Quote the customer off the current sheet.
 </p>
 
