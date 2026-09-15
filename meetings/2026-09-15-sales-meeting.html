@@ -1,0 +1,750 @@
+<title>Tuesday Sales Meeting Run Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --paper:#ffffff;
+  --ground:#e9edf0;
+  --ink:#0e1820;
+  --ink-2:#3c4d59;
+  --ink-3:#6b7c88;
+  --rule:#cfd8de;
+  --rule-soft:#e2e8ed;
+  --gauge:#125d8c;
+  --gauge-soft:#e4eff6;
+  --brass:#a4671b;
+  --brass-soft:#f7efe2;
+  --alert:#a3302a;
+  --alert-soft:#fbeae8;
+  --good:#1a6b50;
+  --good-soft:#e6f2ed;
+  --shadow:0 1px 2px rgba(14,24,32,.06), 0 8px 24px -16px rgba(14,24,32,.35);
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:"Source Sans 3",system-ui,-apple-system,Segoe UI,sans-serif;
+  --display:"Archivo","Source Sans 3",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141d24;
+    --ground:#0c1319;
+    --ink:#e8eef2;
+    --ink-2:#b0bfc9;
+    --ink-3:#8496a2;
+    --rule:#2a3841;
+    --rule-soft:#1f2b33;
+    --gauge:#6ab4e2;
+    --gauge-soft:#132a39;
+    --brass:#d9a35c;
+    --brass-soft:#2b2317;
+    --alert:#e58a83;
+    --alert-soft:#33191a;
+    --good:#66c2a2;
+    --good-soft:#12271f;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141d24;
+  --ground:#0c1319;
+  --ink:#e8eef2;
+  --ink-2:#b0bfc9;
+  --ink-3:#8496a2;
+  --rule:#2a3841;
+  --rule-soft:#1f2b33;
+  --gauge:#6ab4e2;
+  --gauge-soft:#132a39;
+  --brass:#d9a35c;
+  --brass-soft:#2b2317;
+  --alert:#e58a83;
+  --alert-soft:#33191a;
+  --good:#66c2a2;
+  --good-soft:#12271f;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--ground);color:var(--ink);
+  font-family:var(--sans);font-size:16px;line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 16px 72px}
+a{color:var(--gauge);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--gauge);outline-offset:2px;border-radius:3px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0}
+
+/* masthead */
+.mast{padding-block:40px 24px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin:0 0 10px}
+h1{font-size:clamp(30px,6vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.dek{margin:12px 0 0;color:var(--ink-2);max-width:62ch;font-size:17px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:18px;font-family:var(--mono);font-size:12.5px;color:var(--ink-3)}
+.meta b{color:var(--ink-2);font-weight:500}
+
+/* quick links */
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.quick a{
+  display:inline-flex;align-items:center;gap:7px;padding:8px 13px;background:var(--paper);
+  border:1px solid var(--rule);border-radius:999px;text-decoration:none;color:var(--ink);
+  font-size:14px;font-weight:600;box-shadow:var(--shadow)
+}
+.quick a:hover{border-color:var(--gauge);color:var(--gauge)}
+.quick a span{font-family:var(--mono);font-size:11px;color:var(--ink-3);font-weight:500}
+
+/* sticky jump rail */
+.jump{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter:blur(8px);border-block:1px solid var(--rule-soft);
+  margin-top:28px;
+}
+.jump-inner{display:flex;gap:4px;overflow-x:auto;padding:9px 0;scrollbar-width:thin}
+.jump a{
+  flex:0 0 auto;font-family:var(--mono);font-size:12px;font-weight:600;
+  width:28px;height:28px;display:grid;place-items:center;border-radius:6px;
+  text-decoration:none;color:var(--ink-3);border:1px solid transparent
+}
+.jump a:hover{background:var(--gauge-soft);color:var(--gauge);border-color:var(--rule)}
+.jump a.done{color:var(--good);background:var(--good-soft)}
+
+/* agenda item */
+.item{
+  display:grid;grid-template-columns:62px 1fr;gap:0 20px;
+  padding-block:30px;border-top:1px solid var(--rule)
+}
+.item:first-of-type{border-top:2px solid var(--ink)}
+.rail{display:flex;flex-direction:column;align-items:center;gap:10px;padding-top:4px}
+.num{
+  font-family:var(--mono);font-weight:600;font-size:15px;color:var(--paper);
+  background:var(--ink);width:34px;height:34px;display:grid;place-items:center;border-radius:8px;
+  font-variant-numeric:tabular-nums
+}
+.item.is-done .num{background:var(--good)}
+.mins{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.04em}
+.tick{width:20px;height:20px;accent-color:var(--good);cursor:pointer;margin:0}
+.body h2{font-size:21px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.item.is-done .body h2{color:var(--ink-3);text-decoration:line-through;text-decoration-thickness:1px}
+.why{margin:8px 0 0;color:var(--ink-2)}
+.body p{margin:10px 0 0}
+.body > :first-child{margin-top:0}
+
+/* link row */
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.links a{
+  display:inline-flex;align-items:baseline;gap:8px;padding:7px 12px;border-radius:7px;
+  background:var(--gauge-soft);border:1px solid transparent;color:var(--gauge);
+  text-decoration:none;font-weight:600;font-size:14.5px
+}
+.links a:hover{border-color:var(--gauge)}
+.links a em{font-family:var(--mono);font-style:normal;font-size:11px;opacity:.75;letter-spacing:.03em}
+
+/* say-this block */
+.say{
+  margin-top:16px;padding:14px 16px;background:var(--brass-soft);
+  border-left:3px solid var(--brass);border-radius:0 8px 8px 0
+}
+.say .lab{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);display:block;margin-bottom:6px}
+.say p{margin:0 0 0;font-size:15.5px}
+.say p + p{margin-top:8px}
+
+/* review cards */
+.reviews{display:grid;gap:12px;margin-top:16px}
+@media(min-width:680px){.reviews{grid-template-columns:1fr 1fr}}
+.rev{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow)}
+.rev.flag{border-color:var(--alert);background:var(--alert-soft)}
+.rev .who{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px;margin-bottom:8px}
+.tech{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.01em}
+.rev.flag .tech{color:var(--alert)}
+.stars{font-family:var(--mono);font-size:12px;color:var(--brass);font-weight:600;letter-spacing:.06em}
+.rev.flag .stars{color:var(--alert)}
+.rev q{display:block;font-size:14.5px;color:var(--ink-2);line-height:1.5}
+.rev .src{margin-top:9px;font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+
+/* tables */
+.tw{overflow-x:auto;margin-top:16px;border:1px solid var(--rule);border-radius:10px;background:var(--paper)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+thead th{
+  font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:600;background:var(--ground);white-space:nowrap
+}
+tbody tr:last-child td{border-bottom:0}
+td.n,th.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.star td{background:var(--good-soft)}
+tr.star td:first-child{box-shadow:inset 3px 0 0 var(--good)}
+.cost{color:var(--alert);font-weight:600}
+.free{color:var(--good);font-weight:600}
+
+/* quiz */
+details{background:var(--paper);border:1px solid var(--rule);border-radius:9px;margin-top:8px;overflow:hidden}
+details[open]{border-color:var(--gauge)}
+summary{cursor:pointer;padding:11px 14px;font-weight:600;font-size:15px;list-style:none;display:flex;gap:10px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"?";font-family:var(--mono);color:var(--gauge);font-weight:600;flex:0 0 auto}
+details > div{padding:0 14px 13px 36px;color:var(--ink-2);font-size:14.5px;border-top:1px solid var(--rule-soft);padding-top:11px}
+details a{font-weight:600}
+
+/* plain list */
+ul.plain{margin:12px 0 0;padding-left:20px}
+ul.plain li{margin:5px 0}
+ul.plain li::marker{color:var(--ink-3)}
+ol.steps{margin:12px 0 0;padding-left:22px}
+ol.steps li{margin:6px 0}
+ol.steps li::marker{font-family:var(--mono);font-size:13px;color:var(--brass)}
+code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px 5px;border-radius:4px;border:1px solid var(--rule-soft)}
+
+/* close */
+.close{margin-top:40px;padding:26px 24px;background:var(--paper);border:1px solid var(--rule);border-top:3px solid var(--ink);border-radius:0 0 12px 12px;box-shadow:var(--shadow)}
+.close h2{font-size:20px}
+.foot{margin-top:26px;font-family:var(--mono);font-size:11.5px;color:var(--ink-3);line-height:1.7}
+.resetbtn{font-family:var(--mono);font-size:11px;background:none;border:1px solid var(--rule);color:var(--ink-3);padding:5px 10px;border-radius:6px;cursor:pointer;margin-top:14px}
+.resetbtn:hover{border-color:var(--gauge);color:var(--gauge)}
+@media (max-width:560px){
+  .item{grid-template-columns:44px 1fr;gap:0 14px}
+  .num{width:30px;height:30px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="kicker">Weekly Sales Meeting / Tuesday 09.15.2026</p>
+  <h1>Tuesday Sales Meeting Run Sheet</h1>
+  <p class="dek">Sixteen items, every link live. Tick each one off as you go. Your progress saves in this browser, so you can close the tab and pick it back up.</p>
+  <div class="meta">
+    <span><b>Host</b> Jeremiah</span>
+    <span><b>Room</b> Department heads + inside coordinators</span>
+    <span><b>Run time</b> about 90 minutes</span>
+    <span><b>License</b> #1081403</span>
+  </div>
+  <nav class="quick" aria-label="Quick links">
+    <a href="https://drive.google.com/drive/folders/1_7Ry8YAs36JKKWo4jjA56aPYXIiaQVtS" target="_blank" rel="noopener">Content Portal <span>Drive</span></a>
+    <a href="https://docs.google.com/spreadsheets/d/1sxkPKH1JYWqGCjGOY7M6NOBw2rTcG3iq-nfnJMsPywQ/edit" target="_blank" rel="noopener">Air Direct Scorecard <span>Sheets</span></a>
+    <a href="https://drive.google.com/file/d/1LQQBVEfmiCynr-HocS6NlrYIjnEefLOd/view" target="_blank" rel="noopener">Financing Cheat Sheet <span>PDF</span></a>
+    <a href="https://drive.google.com/file/d/1E-x_nKYv8tOrfBAk7PbdSjwCLqFzicJG/view" target="_blank" rel="noopener">Carrier AHRI Matchups <span>PDF</span></a>
+    <a href="https://go.servicetitan.com" target="_blank" rel="noopener">ServiceTitan <span>App</span></a>
+    <a href="https://admin.nearbynow.co" target="_blank" rel="noopener">NearbyNow Reviews <span>Admin</span></a>
+  </nav>
+</header>
+
+<nav class="jump" aria-label="Jump to agenda item"><div class="jump-inner" id="jumpbar"></div></nav>
+
+<main id="agenda">
+
+<!-- 1 -->
+<section class="item" id="i1">
+  <div class="rail">
+    <div class="num">01</div>
+    <input class="tick" type="checkbox" id="chk1" aria-label="Mark item 1 done">
+    <div class="mins">10m</div>
+  </div>
+  <div class="body">
+    <h2>Read the reviews, by name</h2>
+    <p class="why">Seven days of reviews. Read them out loud, say the tech's name, and let the room clap. This is the cheapest culture you will ever buy.</p>
+    <div class="reviews">
+      <div class="rev">
+        <div class="who"><span class="tech">Javier Colmenero</span><span class="stars">5 STAR</span></div>
+        <q>Affordable Heating and Air juggled schedules to get someone out to service my broken AC on the same day when their competitors were booked for days. The service representative was Javier C. who I give my highest ratings for quality of service.</q>
+        <div class="src">Sean Casey / 9.11.2026 / Google</div>
+      </div>
+      <div class="rev">
+        <div class="who"><span class="tech">Juan Gongora</span><span class="stars">5 STAR</span></div>
+        <q>Juan was amazing. He is very knowledgeable and gave me several options for service. He even came out on a Sunday of a long holiday weekend and that was greatly appreciated. From diagnosing our issue to completing the repair, it only took about an hour. Super friendly and great attitude as well.</q>
+        <div class="src">Michael Louie / 9.10.2026 / Google</div>
+      </div>
+      <div class="rev">
+        <div class="who"><span class="tech">JD, Sarah, Alyssa</span><span class="stars">5 STAR</span></div>
+        <q>I have a lot of anxiety around people coming to fix my house as a woman because I have been taken advantage before. But this company made me feel very comfortable. I talked to Sarah and Alyssa over the phone and they were so lovely and let me know this company is woman owned and they don't mess around when hiring good people. I got a picture and name so I know who to expect at my door. JD fixed the AC and gave me really good honest advice. Great experience!</q>
+        <div class="src">Brittany Blair / 9.14.2026 / Google, Simi Valley</div>
+      </div>
+      <div class="rev">
+        <div class="who"><span class="tech">Davide</span><span class="stars">5 STAR</span></div>
+        <q>Davide was very professional and managed to do the entire job in one day. Keep up the good work!</q>
+        <div class="src">Tony Leon / 9.12.2026 / Google, Simi Valley</div>
+      </div>
+      <div class="rev">
+        <div class="who"><span class="tech">Weston Ross</span><span class="stars">5 STAR</span></div>
+        <q>Excellent service. Very considerate and polite.</q>
+        <div class="src">Phyllis Harsma / 9.13.2026 / Survey</div>
+      </div>
+      <div class="rev">
+        <div class="who"><span class="tech">Edward Martinez</span><span class="stars">5 STAR</span></div>
+        <q>Excellent service.</q>
+        <div class="src">Justin Chancellor / 9.12.2026 / Survey</div>
+      </div>
+      <div class="rev">
+        <div class="who"><span class="tech">Team, no tech named</span><span class="stars">5 STAR</span></div>
+        <q>The customer service was responsive, communicative and very honest. I had to have my condo hvac system replaced. The system installed 12 years prior had stopped working and was not the best equipment. I felt Affordable was clear, informational and professional about all aspects of equipment and servicing. I felt taken care of properly in their hands. I would recommend them highly.</q>
+        <div class="src">Linda Lapetino / 9.12.2026 / Google</div>
+      </div>
+      <div class="rev flag">
+        <div class="who"><span class="tech">Jan Michael</span><span class="stars">4 STAR</span></div>
+        <q>I met with Jan Michael for FREE HVAC system estimate and Jan was very informative, experienced and honest about HVAC systems today. The entire team was very helpful!!</q>
+        <div class="src">Christine Lyu / 9.12.2026 / Google. Gene asked why 4 and not 5. Casey called her and left a voicemail 9.14.</div>
+      </div>
+      <div class="rev flag">
+        <div class="who"><span class="tech">1 star, open</span><span class="stars">1 STAR</span></div>
+        <q>Technicians don't do their job right and manager refuses to follow up. Horrible experience that is dragging on longer than it should.</q>
+        <div class="src">Surawanich Pumma / 9.10.2026 / Google. Not the contract holder. Gene is working it. Status today?</div>
+      </div>
+    </div>
+    <div class="say">
+      <span class="lab">Run it like this</span>
+      <p>Names get read out loud. A review with no tech name in it is a missed name, not a bad review, so ask the room why the customer did not have a name to use.</p>
+      <p>Then the hard two. A 4 star is a 5 star that missed something. We do not guess what it was, we call and ask. Same for the 1 star. Gene, where is that one right now?</p>
+    </div>
+    <div class="links">
+      <a href="https://admin.nearbynow.co" target="_blank" rel="noopener">NearbyNow review dashboard <em>ADMIN</em></a>
+      <a href="https://www.google.com/maps?cid=15696765585030183137" target="_blank" rel="noopener">Air Direct on Google <em>4.9 / 51</em></a>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="item" id="i2">
+  <div class="rail"><div class="num">02</div><input class="tick" type="checkbox" id="chk2" aria-label="Mark item 2 done"><div class="mins">15m</div></div>
+  <div class="body">
+    <h2>Around the room</h2>
+    <p class="why">Each department head and each inside coordinator. Ninety seconds apiece, and hold the line on ninety seconds.</p>
+    <p>Same three questions from everyone, in this order, so nobody wanders:</p>
+    <ol class="steps">
+      <li><b>Number.</b> One number that moved this week, up or down.</li>
+      <li><b>Blocker.</b> One thing in your way that somebody in this room can clear.</li>
+      <li><b>Ask.</b> What you need from another department by Friday.</li>
+    </ol>
+    <div class="say">
+      <span class="lab">Run it like this</span>
+      <p>No status reports. If it is not a number, a blocker, or an ask, it goes in a one to one, not in this meeting. Write every ask on the board with a name next to it before you move on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="item" id="i3">
+  <div class="rail"><div class="num">03</div><input class="tick" type="checkbox" id="chk3" aria-label="Mark item 3 done"><div class="mins">10m</div></div>
+  <div class="body">
+    <h2>The numbers: technician scorecard</h2>
+    <p class="why">Pull the scorecard up on the screen. Close rate, estimates ran, estimates sold, average ticket. Nobody gets talked about, everybody gets shown.</p>
+    <div class="links">
+      <a href="https://docs.google.com/spreadsheets/d/1sxkPKH1JYWqGCjGOY7M6NOBw2rTcG3iq-nfnJMsPywQ/edit" target="_blank" rel="noopener">Air Direct Scorecard 2026 <em>UPDATED 9.14</em></a>
+      <a href="https://docs.google.com/spreadsheets/d/1t_rQQ_3Uors30qra-34UXppWnLzbk0972LS0_voBuS4/edit" target="_blank" rel="noopener">CSR / Dispatch Scorecard 2026 <em>SHEETS</em></a>
+      <a href="https://docs.google.com/spreadsheets/d/1ZchpI-aPUQLM8xPovyeUlUKbq2b4f7-UCRpO9MCll-Q/edit" target="_blank" rel="noopener">Operations Calculator <em>SHEETS</em></a>
+    </div>
+    <p>Follow up bonus ladder, unchanged for September:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Monthly sales</th><th class="n">Bonus</th><th>Monthly sales</th><th class="n">Bonus</th></tr></thead>
+        <tbody>
+          <tr><td>$60K</td><td class="n">$75</td><td>$150K</td><td class="n">$200</td></tr>
+          <tr><td>$75K</td><td class="n">$90</td><td>$200K</td><td class="n">$250</td></tr>
+          <tr><td>$100K</td><td class="n">$110</td><td>$250K</td><td class="n">$300</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="say">
+      <span class="lab">Run it like this</span>
+      <p>Read the board top to bottom without commentary. Then ask the top close rate what they are saying differently. That is the training, and it costs you four minutes.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="item" id="i4">
+  <div class="rail"><div class="num">04</div><input class="tick" type="checkbox" id="chk4" aria-label="Mark item 4 done"><div class="mins">12m</div></div>
+  <div class="body">
+    <h2>Financing walkthrough</h2>
+    <p class="why">Every rep should be able to quote a payment from memory on the top two plans and know what each plan costs us. Payment equals loan amount times the payment factor. That is the whole formula.</p>
+    <p>Worked live on a <b>$14,500</b> system so everyone is doing the same math:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Plan</th><th class="n">APR</th><th class="n">Term</th><th class="n">Factor</th><th class="n">Payment</th><th class="n">Dealer fee</th><th class="n">Costs us</th></tr></thead>
+        <tbody>
+          <tr class="star"><td>GoodLeap standard</td><td class="n">12.99%</td><td class="n">15 yr</td><td class="n">0.01280</td><td class="n">$185.60</td><td class="n free">0.00%</td><td class="n free">$0</td></tr>
+          <tr><td>GoodLeap autopay</td><td class="n">9.99%</td><td class="n">15 yr</td><td class="n">0.01085</td><td class="n">$157.33</td><td class="n">7.75%</td><td class="n cost">$1,124</td></tr>
+          <tr><td>GoodLeap best rate</td><td class="n">7.99%</td><td class="n">15 yr</td><td class="n">0.00964</td><td class="n">$139.78</td><td class="n">13.75%</td><td class="n cost">$1,994</td></tr>
+          <tr class="star"><td>Wells Fargo 0124</td><td class="n">0%</td><td class="n">24 mo</td><td class="n">4.17%</td><td class="n">$604.65</td><td class="n">11.06%</td><td class="n cost">$1,604</td></tr>
+          <tr><td>Wells Fargo 0160</td><td class="n">0%</td><td class="n">60 mo</td><td class="n">1.67%</td><td class="n">$242.15</td><td class="n">17.15%</td><td class="n cost">$2,487</td></tr>
+          <tr><td>Wells Fargo 1136</td><td class="n">2.99%</td><td class="n">120 mo</td><td class="n">0.97%</td><td class="n">$140.65</td><td class="n">19.25%</td><td class="n cost">$2,791</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="say">
+      <span class="lab">Say this out loud</span>
+      <p>Deferred interest is the one that bites. On a no interest if paid in full plan, if the customer does not clear the balance before the promo ends, interest gets charged back to day one at 15.49%. We disclose that every single time, in those words. It is not fine print, it is the sentence that keeps us out of trouble.</p>
+      <p>GoodLeap adds 0.50% if they pay by check instead of autopay. Wells Fargo long term plans need a $7,500 minimum.</p>
+    </div>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/1LQQBVEfmiCynr-HocS6NlrYIjnEefLOd/view" target="_blank" rel="noopener">Financing cheat sheet <em>PDF</em></a>
+      <a href="https://drive.google.com/file/d/1IMBrPnJUfZtZUdJleWkZLY5rs_TKK04I/view" target="_blank" rel="noopener">Wells Fargo plan codes and rates <em>PDF</em></a>
+      <a href="tel:18449100111">GoodLeap contractor support <em>844 910 0111</em></a>
+      <a href="tel:18005515111">Wells Fargo dealer line <em>800 551 5111</em></a>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="item" id="i5">
+  <div class="rail"><div class="num">05</div><input class="tick" type="checkbox" id="chk5" aria-label="Mark item 5 done"><div class="mins">4m</div></div>
+  <div class="body">
+    <h2>Announcement: 8am training, every week</h2>
+    <p class="why">Standing weekly training at 8am. Not optional, not a webinar. We build something together every session.</p>
+    <p>The rotation, so people can come with questions:</p>
+    <ul class="plain">
+      <li><b>Estimate building.</b> Good, better, best in the pricebook, built live from a real job.</li>
+      <li><b>Home configurations.</b> Attic, closet, crawl space, roof package, condo. What changes in the estimate for each.</li>
+      <li><b>Financing.</b> The table in item 4, until nobody has to look it up.</li>
+      <li><b>Rebates and credits.</b> 25C, LADWP, TECH Clean California, 3C REN.</li>
+      <li><b>Permits and Title 24.</b> What triggers a HERS test and what it does to the schedule.</li>
+    </ul>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/1NbGYs1KlMK_veZqjlaFcQQ2u3d6ortkR/view" target="_blank" rel="noopener">25C tax credit form <em>PDF</em></a>
+      <a href="https://drive.google.com/file/d/18vnY1ih2Li-4_nIc73Ej0a2XkVYdGocK/view" target="_blank" rel="noopener">How to sell SEER2 <em>PDF</em></a>
+      <a href="https://drive.google.com/file/d/1xYIQdnnwcoxlAk_Q4WZ1sqDYWsbAC9w9/view" target="_blank" rel="noopener">Energy bill impact estimate <em>PNG</em></a>
+    </div>
+    <div class="say">
+      <span class="lab">Run it like this</span>
+      <p>Ask the room to name the topic they want first. Whatever gets the most hands is next week. Put it on the calendar in the meeting, not after it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="item" id="i6">
+  <div class="rail"><div class="num">06</div><input class="tick" type="checkbox" id="chk6" aria-label="Mark item 6 done"><div class="mins">7m</div></div>
+  <div class="body">
+    <h2>Job completion form: why, and what you think</h2>
+    <p class="why">Walk the form on screen, field by field. Then shut up and take feedback.</p>
+    <p>The why, in one line: the completion form is what turns a finished job into a closed job. Signed by the tech and initialed by the customer means no callback argument three weeks later about whether the airflow was checked.</p>
+    <p>What it captures: heating operating with all pilots on, condenser and coil operating, consistent airflow with no moisture or odor, no unusual noise, no leaks or moisture around lines, work areas clean.</p>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/1JxzauEXXs35eiAnA7Vk9hUP0G2PZ3ohI/view" target="_blank" rel="noopener">HVAC installation completion form <em>DOCX</em></a>
+      <a href="https://drive.google.com/file/d/1envu7mUu7mmDSJ9LAuu5MkmEM6D44wlD/view" target="_blank" rel="noopener">Production workflow and install manager KPIs <em>XLSX</em></a>
+    </div>
+    <div class="say">
+      <span class="lab">The two questions to ask</span>
+      <p>What field do you skip, and why do you skip it? A field everyone skips is a bad field, not a discipline problem.</p>
+      <p>What goes wrong on a job that this form would not catch? Add it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="item" id="i7">
+  <div class="rail"><div class="num">07</div><input class="tick" type="checkbox" id="chk7" aria-label="Mark item 7 done"><div class="mins">6m</div></div>
+  <div class="body">
+    <h2>New maintenance form: feedback</h2>
+    <p class="why">Version 56 of the ServiceTitan maintenance form is live. It fires on job completion, on the mobile app, and it is required.</p>
+    <p>How it is built: type of maintenance first (AC, furnace, heat pump, package unit, mini split), then stoplight ratings down the system. Red, yellow, green on condenser and coil condition and the rest. The stoplight is the sales tool. A yellow with a photo is an estimate. A yellow with nothing attached is a note nobody reads.</p>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/1wNe_xeLwJaCbISDMEsZ3u6pC01bKyPfX/view" target="_blank" rel="noopener">Maintenance form definition <em>JSON</em></a>
+    </div>
+    <div class="say">
+      <span class="lab">Ask the room</span>
+      <p>Is it too long to finish in the attic on a phone? If yes, which fields go. Is anything missing that you would want to see on a system you are about to quote?</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="item" id="i8">
+  <div class="rail"><div class="num">08</div><input class="tick" type="checkbox" id="chk8" aria-label="Mark item 8 done"><div class="mins">10m</div></div>
+  <div class="body">
+    <h2>Labor Day special: $100 duct cleaning spiff</h2>
+    <p class="why">$100 to the tech on every duct cleaning sold. Then we build one together, on the screen, start to finish.</p>
+    <ol class="steps">
+      <li>Open a real maintenance job in ServiceTitan and go to the estimate tab.</li>
+      <li>Count supply vents and returns off the engineering or maintenance form. That is your line count, not a guess.</li>
+      <li>Pull duct cleaning from the pricebook. Confirm the sanitizing treatment line is on it.</li>
+      <li>Attach the before photos. Dirty ducts sell duct cleaning, words do not.</li>
+      <li>Present it as the good, better, best option next to the maintenance, never as a standalone upsell at the door.</li>
+      <li>Show the payment if it rides on a system sale. Then close.</li>
+    </ol>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/1HBjirB9TK_J0L7gkYI-2ZX3UxO6v9ucF/view" target="_blank" rel="noopener">Before and after photos <em>PNG</em></a>
+      <a href="https://drive.google.com/file/d/1xb6sAe5G7qyAojlR-R42rC4vz7V4bxlF/view" target="_blank" rel="noopener">Air duct sizing sheet <em>WEBP</em></a>
+      <a href="https://drive.google.com/drive/folders/1PghTNuVX9f394-OhJTRJsEMRrDj-m6i2" target="_blank" rel="noopener">Duct cleaning ad library <em>DRIVE</em></a>
+    </div>
+    <div class="say">
+      <span class="lab">Say this out loud</span>
+      <p>The spiff pays on sold and completed, not on quoted. Write the tech name on the estimate so it is traceable at payroll.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="item" id="i9">
+  <div class="rail"><div class="num">09</div><input class="tick" type="checkbox" id="chk9" aria-label="Mark item 9 done"><div class="mins">5m</div></div>
+  <div class="body">
+    <h2>Authorized dealer names, said correctly</h2>
+    <p class="why">Every manufacturer has one exact title. Using the wrong one in front of a customer or in writing is a compliance problem and it makes us sound like we do not know our own brands.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Manufacturer</th><th>Say this, exactly</th><th class="n">Short</th></tr></thead>
+        <tbody>
+          <tr><td>Carrier</td><td><b>Factory Authorized Dealer</b></td><td class="n">FAD</td></tr>
+          <tr><td>Trane</td><td><b>Trane Comfort Specialist</b></td><td class="n">TCS</td></tr>
+          <tr><td>Daikin</td><td><b>Daikin Comfort Pro</b></td><td class="n">DCP</td></tr>
+          <tr><td>Lennox</td><td><b>Premier Dealer</b></td><td class="n">Premier</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="say">
+      <span class="lab">Say this out loud</span>
+      <p>Never "certified," never "authorized dealer" as a catch all, never mixing one brand's title onto another brand's equipment. Trane's title is tied to the Comfort Specialist program, and the Wells Fargo dealer rates we get on Trane are tied to that same program status. Say the wrong thing and you are describing a program we may not be in.</p>
+    </div>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/10p7jSOCFh-3O1yREh5PX_x8ZXYgwzZQB/view" target="_blank" rel="noopener">Carrier equipment bundles <em>PDF</em></a>
+      <a href="https://drive.google.com/file/d/15Z0vq5wgUWDlWME_PrpHELkacuGCDJzJ/view" target="_blank" rel="noopener">Goodman equipment bundles <em>PDF</em></a>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="item" id="i10">
+  <div class="rail"><div class="num">10</div><input class="tick" type="checkbox" id="chk10" aria-label="Mark item 10 done"><div class="mins">8m</div></div>
+  <div class="body">
+    <h2>Content Portal quiz</h2>
+    <p class="why">Not a test of what they memorized. A test of whether they know where the answer lives. Ask, wait, then open the answer and show the file.</p>
+    <p>Nineteen documents sit in the portal. Ask these ten cold:</p>
+
+    <details id="q1"><summary>A customer says your competitor is cheaper. What do you hand them?</summary>
+      <div>Best Value and Lowest Cost Guarantee. <a href="https://drive.google.com/file/d/1BemOYTS1SST5xTV-uNGNq-eTgSX9eSCo/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q2"><summary>Homeowner asks what happens if they are not happy after install.</summary>
+      <div>Quality and Satisfaction Guarantee. <a href="https://drive.google.com/file/d/1Oem-H_jaUkTzi6_3k4t-pn0e5ahEWu85/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q3"><summary>You need the AHRI reference number for a Carrier crossover match.</summary>
+      <div>Carrier AHRI Matchups. <a href="https://drive.google.com/file/d/1E-x_nKYv8tOrfBAk7PbdSjwCLqFzicJG/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q4"><summary>What size breaker does this condenser need?</summary>
+      <div>Breaker sizing sheet. <a href="https://drive.google.com/file/d/1cg-BXLi87cM53nDv38hgwO5rZCoyHudd/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q5"><summary>Will the new furnace fit in that closet?</summary>
+      <div>Cabinet sizing sheet. <a href="https://drive.google.com/file/d/1dEQVaHE-LOIOaPX1NS3tSAEJmAM_Hsk8/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q6"><summary>Customer asks the difference between low NOx and ultra low NOx.</summary>
+      <div>Low NOx vs ULN. <a href="https://drive.google.com/file/d/10_FycLbnlvPSXY1jB4KGUZBy_FIKfrbz/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q7"><summary>Property manager wants proof of insurance before you can get on site.</summary>
+      <div>Certificates of insurance. <a href="https://drive.google.com/file/d/13jOzUYjfDWrXD-GNJOLFZSSm1I_HTqCn/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q8"><summary>Commercial customer needs our W9 before they will cut a check.</summary>
+      <div>W9, Affordable tax paperwork. <a href="https://drive.google.com/file/d/10DfmtDd8nSHjprTdi-VbPbY84TouIb7g/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q9"><summary>Customer wants to know what this does to their electric bill.</summary>
+      <div>Energy bill impact estimate. <a href="https://drive.google.com/file/d/1xYIQdnnwcoxlAk_Q4WZ1sqDYWsbAC9w9/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <details id="q10"><summary>You are sitting at the kitchen table and need the full presentation.</summary>
+      <div>Home Comfort Evaluation presentation book. <a href="https://drive.google.com/file/d/100cGb77xNV6FgLqVsgb6StTASj7q4EI8/view" target="_blank" rel="noopener">Open it</a></div></details>
+
+    <div class="links">
+      <a href="https://drive.google.com/drive/folders/1_7Ry8YAs36JKKWo4jjA56aPYXIiaQVtS" target="_blank" rel="noopener">Content Portal folder <em>19 FILES</em></a>
+    </div>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="item" id="i11">
+  <div class="rail"><div class="num">11</div><input class="tick" type="checkbox" id="chk11" aria-label="Mark item 11 done"><div class="mins">6m</div></div>
+  <div class="body">
+    <h2>HOA information on the engineering form</h2>
+    <p class="why">The form asks "Is there an HOA?" and answering Yes makes the HOA Information field required. That field is where installs go to die when it is left blank.</p>
+    <p>The engineering form fires after arrival on every HVAC estimate job type: condenser, coil, furnace, furnace and coil, condenser and coil, air handler, heat pump, package unit, full split system, full system cut in, single and multi zone mini split, duct replacement, relocation, AC add on.</p>
+    <p><b>What belongs in HOA Information.</b> Management company name and phone, whether architectural approval is required before work, the submittal lead time in days, any equipment location or screening restriction, approved work hours, and whether a crane or roof access needs separate sign off.</p>
+    <p><b>Permits.</b> Same conversation. Changeouts in our area need a mechanical permit, the job needs to pass Title 24 compliance, and duct or refrigerant work triggers field verification. If the HOA has a 30 day approval window and the permit has its own lead time, those run at the same time, not back to back. Say that to the customer up front so the install date you promise is the install date they get.</p>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/1g6a4GVGzLZaGIB_3ImXuLsgvMhci3ihy/view" target="_blank" rel="noopener">Engineering form definition <em>JSON</em></a>
+    </div>
+    <div class="say">
+      <span class="lab">Say this out loud</span>
+      <p>Condo or townhome on the schedule means you ask about the HOA before you leave the driveway. Not after. The field is required for a reason.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="item" id="i12">
+  <div class="rail"><div class="num">12</div><input class="tick" type="checkbox" id="chk12" aria-label="Mark item 12 done"><div class="mins">8m</div></div>
+  <div class="body">
+    <h2>Follow ups review</h2>
+    <p class="why">September assignments off the scorecard. Every name below owes somebody a call this week.</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Owner</th><th>Technicians assigned</th></tr></thead>
+        <tbody>
+          <tr><td><b>Lorraine</b></td><td>Allen, Ziv, Benji, Mauricio, Edward</td></tr>
+          <tr><td><b>Alfredo</b></td><td>Roy, Ryan, Craig, Weston, Juan</td></tr>
+          <tr><td><b>Jesse</b></td><td>Eugene, Jeremy, Javier, JD, Karma</td></tr>
+          <tr><td><b>Marie / Alfredo</b></td><td>Jan, Adi</td></tr>
+          <tr><td><b>Tara / Secondary Jesse</b></td><td>Murad, Sampson</td></tr>
+          <tr><td><b>FLO follow ups</b></td><td>Jesse, Neev, Alon, Ryan, Juan, Eugene</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="say">
+      <span class="lab">Run it like this</span>
+      <p>Go owner by owner. How many unsold estimates are open, how many did you touch this week, what is the oldest one still sitting there. An estimate nobody has called in two weeks is not a follow up, it is a lost job we have not admitted to yet.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="item" id="i13">
+  <div class="rail"><div class="num">13</div><input class="tick" type="checkbox" id="chk13" aria-label="Mark item 13 done"><div class="mins">4m</div></div>
+  <div class="body">
+    <h2>New: Apply for Financing lives in the History tab</h2>
+    <p class="why">Small change, big deal. The customer no longer has to wait for an email or dig up a link.</p>
+    <ol class="steps">
+      <li>Open the customer in ServiceTitan mobile.</li>
+      <li>Tap the <b>History</b> tab.</li>
+      <li>Tap <b>Apply for Financing</b>.</li>
+      <li>Hand them the phone or send the link while you are standing there.</li>
+    </ol>
+    <div class="say">
+      <span class="lab">Say this out loud</span>
+      <p>Apply at the table, not after you leave. Approval in hand changes the conversation from "let me think about it" to "which option." Pair it with the payment you quoted in item 4 so the number on the screen matches the number in their head.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="item" id="i14">
+  <div class="rail"><div class="num">14</div><input class="tick" type="checkbox" id="chk14" aria-label="Mark item 14 done"><div class="mins">8m</div></div>
+  <div class="body">
+    <h2>Build an AHRI matchup together</h2>
+    <p class="why">An unmatched system will not pass, will not get the credit, and can void warranty. Do one live on the screen so everybody has seen it done once.</p>
+    <p>Work off the Carrier crossover page. Variable speed, fully communicating, field convertible 208-1 to 115-1 air handlers:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th class="n">AHRI ref</th><th class="n">Outdoor</th><th class="n">Indoor</th><th class="n">BTU</th><th class="n">SEER2</th><th class="n">EER2</th><th class="n">HSPF2</th><th class="n">25C</th></tr></thead>
+        <tbody>
+          <tr class="star"><td class="n">215318761</td><td class="n">37MUHAQ18AA3</td><td class="n">45MUHAQ24XX3</td><td class="n">18,000</td><td class="n">19.0</td><td class="n">12.5</td><td class="n">10.2</td><td class="n">Yes</td></tr>
+          <tr><td class="n">215318749</td><td class="n">37MUHAQ24AA3</td><td class="n">45MUHAQ24XX3</td><td class="n">24,000</td><td class="n">18.7</td><td class="n">12.0</td><td class="n">10.0</td><td class="n">Yes</td></tr>
+          <tr><td class="n">215323720</td><td class="n">37MUHAQ36AA3</td><td class="n">45MUHAQ36XX3</td><td class="n">36,000</td><td class="n">18.0</td><td class="n">12.0</td><td class="n">10.0</td><td class="n">Yes</td></tr>
+          <tr><td class="n">215318763</td><td class="n">37MUHAQ48AA3</td><td class="n">45MUHAQ60XX3</td><td class="n">48,000</td><td class="n">17.5</td><td class="n">12.0</td><td class="n">9.5</td><td class="n">Yes</td></tr>
+          <tr><td class="n">215318754</td><td class="n">37MUHAQ60AA3</td><td class="n">45MUHAQ60XX3</td><td class="n">54,000</td><td class="n">17.5</td><td class="n">12.0</td><td class="n">9.5</td><td class="n">Yes</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <ol class="steps">
+      <li>Start with the outdoor model number off the estimate.</li>
+      <li>Find the indoor unit paired to it on the matchup sheet. Best, better and good rows pair different indoor units to the same condenser, so read the row, not the column.</li>
+      <li>Copy the AHRI reference number onto the estimate and into the permit paperwork.</li>
+      <li>Verify it in the AHRI Directory if the match is not on our sheet.</li>
+      <li>Check the 25C column. If it says yes, tell the customer about the credit while you are sitting there.</li>
+    </ol>
+    <div class="links">
+      <a href="https://drive.google.com/file/d/1E-x_nKYv8tOrfBAk7PbdSjwCLqFzicJG/view" target="_blank" rel="noopener">Carrier AHRI matchups <em>PDF</em></a>
+      <a href="https://www.ahridirectory.org" target="_blank" rel="noopener">AHRI Directory <em>VERIFY</em></a>
+      <a href="https://drive.google.com/file/d/1NbGYs1KlMK_veZqjlaFcQQ2u3d6ortkR/view" target="_blank" rel="noopener">25C tax credit form <em>PDF</em></a>
+    </div>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="item" id="i15">
+  <div class="rail"><div class="num">15</div><input class="tick" type="checkbox" id="chk15" aria-label="Mark item 15 done"><div class="mins">4m</div></div>
+  <div class="body">
+    <h2>Yelp reviews and the review link</h2>
+    <p class="why">Ricki S. reviewed us on Yelp Sunday. Google is covered by NearbyNow, Yelp is not, so Yelp only moves when we ask on the job.</p>
+    <p>Two listings, two different audiences. Know which one you are pointing a customer to:</p>
+    <div class="links">
+      <a href="https://www.yelp.com/biz/affordable-heating-and-air-chatsworth-3" target="_blank" rel="noopener">Affordable Heating and Air on Yelp <em>SERVICE</em></a>
+      <a href="https://www.yelp.com/biz/affordable-air-direct-chatsworth" target="_blank" rel="noopener">Affordable Air Direct on Yelp <em>DIRECT</em></a>
+      <a href="https://www.google.com/maps?cid=15696765585030183137" target="_blank" rel="noopener">Air Direct on Google <em>4.9 / 51</em></a>
+    </div>
+    <div class="say">
+      <span class="lab">Say this out loud</span>
+      <p>Yelp strips reviews it thinks were solicited, so do not text a customer a Yelp link and do not ask for five stars. Ask them to share their experience, hand them the profile, and let them write it themselves. Give them your name so it ends up in the review, because a review with a tech name in it is worth three without one.</p>
+      <p>Heads up on Google: Simi Valley impressions are down 35% week over week and that profile has had no new photos in 143 days. Install photos fix both. Send them to Ryan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="item" id="i16">
+  <div class="rail"><div class="num">16</div><input class="tick" type="checkbox" id="chk16" aria-label="Mark item 16 done"><div class="mins">6m</div></div>
+  <div class="body">
+    <h2>Pricebook review: the Why and the Terms</h2>
+    <p class="why">Every option a customer sees carries two blocks of copy. The Why is the reason this option exists for their house. The Terms are what we are actually promising. Both get read out loud today.</p>
+    <p><b>The Why.</b> It is written for the homeowner, not for us. Wrong: "high efficiency variable speed inverter system." Right: "your upstairs bedrooms stop being ten degrees hotter than the living room." One sentence, their house, their problem.</p>
+    <p><b>The Terms.</b> What is included in the price, every time: standard professional installation, removal and haul away of the old equipment, new thermostat, permit and city inspection, 10 year manufacturer parts warranty, 1 year labor warranty. If an option promises something different from that list, the option is wrong or the list is wrong. Find out which before a customer does.</p>
+    <div class="links">
+      <a href="https://docs.google.com/spreadsheets/d/15lClx_6SAZJtRcH1r6V8GVo-AWMloMexnyqoUkuaS6s/edit" target="_blank" rel="noopener">Pricebook task list tracker <em>SHEETS</em></a>
+      <a href="https://drive.google.com/file/d/1BemOYTS1SST5xTV-uNGNq-eTgSX9eSCo/view" target="_blank" rel="noopener">Best value and lowest cost guarantee <em>PDF</em></a>
+      <a href="https://drive.google.com/file/d/1Oem-H_jaUkTzi6_3k4t-pn0e5ahEWu85/view" target="_blank" rel="noopener">Quality and satisfaction guarantee <em>PDF</em></a>
+    </div>
+    <div class="say">
+      <span class="lab">Run it like this</span>
+      <p>Pull up one good, better, best set on the screen and read all three Why lines out loud. If they sound the same, they are the same, and the customer has no reason to move up. That is the whole exercise.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<section class="close">
+  <h2>Before anybody leaves</h2>
+  <ul class="plain">
+    <li>Gene: where is the Surawanich Pumma 1 star, and what is the close on it.</li>
+    <li>Casey: did Christine Lyu call back, and what was the missing star.</li>
+    <li>Everyone: next week's 8am training topic is on the calendar before you walk out.</li>
+    <li>Install and service leads: photos to Ryan for the Simi Valley Google profile.</li>
+    <li>Duct cleaning spiff: tech name goes on every estimate so payroll can trace it.</li>
+    <li>Every open estimate older than two weeks gets a call today, not Friday.</li>
+  </ul>
+  <button class="resetbtn" id="reset" type="button">Clear all checkmarks</button>
+</section>
+
+<p class="foot">
+  Built from live sources on 9.15.2026: NearbyNow and Google review notifications from the past 7 days, the Air Direct Scorecard 2026 (updated 9.14), the Content Portal, the March 2026 financing cheat sheet, Wells Fargo plan codes effective 3.2.2026, and the published ServiceTitan engineering and maintenance form definitions.<br>
+  Payment figures are the stated payment factor times $14,500 and are for internal training. Quote the customer off the current sheet.
+</p>
+
+</div>
+
+<script>
+(function(){
+  var KEY='aha-mtg-2026-09-15';
+  var boxes=[].slice.call(document.querySelectorAll('.tick'));
+  var bar=document.getElementById('jumpbar');
+
+  // build jump rail
+  boxes.forEach(function(b,i){
+    var n=i+1;
+    var a=document.createElement('a');
+    a.href='#i'+n; a.textContent=n; a.id='jump'+n;
+    a.setAttribute('aria-label','Go to item '+n);
+    bar.appendChild(a);
+  });
+
+  function load(){
+    try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; }
+  }
+  function save(s){
+    try{ localStorage.setItem(KEY,JSON.stringify(s)); }catch(e){}
+  }
+  function paint(b){
+    var n=b.id.replace('chk','');
+    var sec=document.getElementById('i'+n);
+    var j=document.getElementById('jump'+n);
+    if(sec) sec.classList.toggle('is-done',b.checked);
+    if(j) j.classList.toggle('done',b.checked);
+  }
+
+  var state=load();
+  boxes.forEach(function(b){
+    if(state[b.id]) b.checked=true;
+    paint(b);
+    b.addEventListener('change',function(){
+      var s=load(); s[b.id]=b.checked; save(s); paint(b);
+    });
+  });
+
+  document.getElementById('reset').addEventListener('click',function(){
+    boxes.forEach(function(b){ b.checked=false; paint(b); });
+    save({});
+  });
+})();
+</script>
