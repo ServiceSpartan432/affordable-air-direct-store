@@ -7,6 +7,7 @@ import { usePageMeta } from '../lib/usePageMeta.js'
 import {
   SYSTEM_ICONS, IconArrowRight, IconShield, IconTruck, IconBolt, IconStar, IconCheck, IconPhone,
 } from '../components/icons.jsx'
+import { displayPhone, phoneHref } from '../lib/phone.js'
 
 const SYSTEM_OPTIONS = STEPS[0].options
 
@@ -45,8 +46,8 @@ export default function StoreHome() {
               <Link to="/journey/zip" className="btn-primary">
                 Get my instant quote <IconArrowRight size={18} />
               </Link>
-              <a href={COMPANY.phoneHref} className="btn-ghost border-white/30 bg-white/5 text-white hover:border-brand-teal hover:text-brand-teal">
-                <IconPhone size={17} /> {COMPANY.phone}
+              <a href={phoneHref()} className="btn-ghost border-white/30 bg-white/5 text-white hover:border-brand-teal hover:text-brand-teal">
+                <IconPhone size={17} /> {displayPhone()}
               </a>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70">

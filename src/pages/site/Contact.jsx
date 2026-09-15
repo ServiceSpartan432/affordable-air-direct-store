@@ -5,6 +5,7 @@ import { track, contactToUser, getCookie, getFbc } from '../../lib/tracking.js'
 import { isDemoMode } from '../../lib/demoMode.js'
 import { getOppref, getSourceUrl } from '../../lib/adAttribution.js'
 import { IconPhone, IconCheck, IconArrowRight } from '../../components/icons.jsx'
+import { displayPhone, phoneHref } from '../../lib/phone.js'
 
 // Contact endpoint lives next to the quote endpoint on the API host.
 const CONTACT_ENDPOINT = QUOTE_ENDPOINT.replace(/\/quote$/, '/contact')
@@ -12,7 +13,7 @@ const CONTACT_ENDPOINT = QUOTE_ENDPOINT.replace(/\/quote$/, '/contact')
 export default function Contact() {
   usePageMeta(
     'Contact Us | Affordable Air Direct',
-    `Call ${COMPANY.phone}, email ${COMPANY.email}, or send us a message. ${COMPANY.address}.`,
+    `Call ${displayPhone()}, email ${COMPANY.email}, or send us a message. ${COMPANY.address}.`,
   )
   const [form, setForm] = useState({ name: '', phone: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
@@ -63,9 +64,9 @@ export default function Contact() {
           Call us — you will never get a salesperson, just straight answers.
         </p>
         <div className="mt-8 space-y-4 text-slate-600">
-          <a href={COMPANY.phoneHref} className="flex items-center gap-3 font-semibold text-brand-navy hover:text-brand-teal">
+          <a href={phoneHref()} className="flex items-center gap-3 font-semibold text-brand-navy hover:text-brand-teal">
             <span className="grid h-11 w-11 place-items-center rounded-xl bg-brand-teal/10 text-brand-teal-dark"><IconPhone size={20} /></span>
-            {COMPANY.phone}
+            {displayPhone()}
           </a>
           <p><a href={`mailto:${COMPANY.email}`} className="hover:text-brand-teal">{COMPANY.email}</a></p>
           <p><a href={COMPANY.mapHref} className="hover:text-brand-teal">{COMPANY.address}</a></p>

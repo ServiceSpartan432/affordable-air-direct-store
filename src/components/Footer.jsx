@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { COMPANY } from '../data/config.js'
 import { IconPhone } from './icons.jsx'
+import { displayPhone, phoneHref } from '../lib/phone.js'
 
 export default function Footer() {
   return (
@@ -21,8 +22,8 @@ export default function Footer() {
           <h4 className="text-sm font-semibold uppercase tracking-wide text-white">Contact</h4>
           <ul className="mt-4 space-y-2 text-sm">
             <li>
-              <a href={COMPANY.phoneHref} className="inline-flex items-center gap-2 hover:text-brand-teal">
-                <IconPhone size={15} /> {COMPANY.phone}
+              <a href={phoneHref()} className="inline-flex items-center gap-2 hover:text-brand-teal">
+                <IconPhone size={15} /> {displayPhone()}
               </a>
             </li>
             <li><a href={`mailto:${COMPANY.email}`} className="hover:text-brand-teal">{COMPANY.email}</a></li>

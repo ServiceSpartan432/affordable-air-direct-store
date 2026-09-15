@@ -26,6 +26,13 @@ const PARAM = 'oppref'
 const COOKIE = 'aad_oppref'
 const DAYS = 30 // matches OpenAI's 720-hour click window
 
+// Every ChatGPT ad lands with `offer=chatgpt`. It is a broader marker than the
+// click id — oppref is occasionally absent, the offer tag never is — and it is
+// what decides whether this visitor sees the tracking phone number.
+const OFFER_PARAM = 'offer'
+const OFFER_VALUE = 'chatgpt'
+const OFFER_COOKIE = 'aad_chatgpt'
+
 // Deliberately strict: this value is echoed to OpenAI and stored, so it only
 // ever holds the URL-safe shape their click ids actually use.
 const SHAPE = /^[\w.:~-]{1,500}$/
@@ -50,17 +57,36 @@ function writeCookie(name, value, days) {
  */
 export function captureOppref() {
   if (typeof window === 'undefined') return ''
-  let fromUrl = ''
+  let params = null
   try {
-    fromUrl = new URLSearchParams(window.location.search).get(PARAM) || ''
+    params = new URLSearchParams(window.location.search)
   } catch {
     /* ancient browser — fall through to whatever is already stored */
   }
+
+  // Remember that this visitor came from a ChatGPT ad, independently of
+  // whether the click id survived. A click id is itself proof of one.
+  const fromUrl = (params && params.get(PARAM)) || ''
+  const tagged = ((params && params.get(OFFER_PARAM)) || '').toLowerCase()
+  if (tagged === OFFER_VALUE || (fromUrl && SHAPE.test(fromUrl))) {
+    writeCookie(OFFER_COOKIE, '1', DAYS)
+  }
+
   if (fromUrl && SHAPE.test(fromUrl)) {
     writeCookie(COOKIE, fromUrl, DAYS)
     return fromUrl
   }
   return getOppref()
+}
+
+/**
+ * Whether this visitor arrived from a ChatGPT ad — the gate for showing the
+ * tracking phone number instead of the main line. Remembered for 30 days so
+ * the number still holds on the second visit, the way the call itself might.
+ */
+export function isFromChatGptAds() {
+  if (typeof window === 'undefined') return false
+  return readCookie(OFFER_COOKIE) === '1' || Boolean(getOppref())
 }
 
 /** The click id for this visitor, or '' for everyone who didn't come from an ad. */

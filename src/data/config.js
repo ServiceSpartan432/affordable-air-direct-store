@@ -1,4 +1,19 @@
 // Central business config — edit these to tune the whole store.
+
+// Dynamic number insertion for ChatGPT ad traffic — see lib/phone.js. Visitors
+// who arrive from a ChatGPT ad are shown this line instead of COMPANY.phone, so
+// the call is credited to its own ServiceTitan campaign rather than absorbed
+// into whichever campaign owns the main number.
+//
+// This must be a number that RINGS THE AIR DIRECT TEAM and is mapped to an Air
+// Direct campaign in ServiceTitan. Leave `phone` empty and nothing is swapped —
+// the store keeps showing COMPANY.phone everywhere, which is the safe default
+// and exactly what happens if this is never configured.
+export const CHATGPT_ADS = {
+  phone: import.meta.env.VITE_CHATGPT_ADS_PHONE || '',
+  phoneHref: import.meta.env.VITE_CHATGPT_ADS_PHONE_HREF || '',
+}
+
 export const COMPANY = {
   name: 'Affordable Air Direct',
   parent: 'Affordable Heating and Air',

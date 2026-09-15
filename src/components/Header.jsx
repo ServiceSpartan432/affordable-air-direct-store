@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { COMPANY } from '../data/config.js'
 import { useCart } from '../context/CartContext.jsx'
 import { IconCart, IconPhone, IconArrowRight } from './icons.jsx'
+import { displayPhone, phoneHref } from '../lib/phone.js'
 
 const NAV = [
   { to: '/services', label: 'Services' },
@@ -23,8 +24,8 @@ export default function Header() {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5">
           <span className="hidden sm:inline">{COMPANY.tagline}</span>
           <div className="flex items-center gap-4">
-            <a href={COMPANY.phoneHref} className="inline-flex items-center gap-1.5 font-medium hover:text-brand-teal">
-              <IconPhone size={14} /> {COMPANY.phone}
+            <a href={phoneHref()} className="inline-flex items-center gap-1.5 font-medium hover:text-brand-teal">
+              <IconPhone size={14} /> {displayPhone()}
             </a>
             <span className="hidden text-white/50 md:inline">License #{COMPANY.license}</span>
           </div>

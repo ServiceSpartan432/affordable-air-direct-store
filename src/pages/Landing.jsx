@@ -6,6 +6,7 @@ import { landingCopyFor } from '../data/landingCopy.js'
 import { useQuote } from '../context/QuoteContext.jsx'
 import { usePageMeta } from '../lib/usePageMeta.js'
 import { SYSTEM_ICONS, IconArrowRight, IconShield, IconStar, IconPhone, IconCheck } from '../components/icons.jsx'
+import { displayPhone, phoneHref } from '../lib/phone.js'
 
 const SYSTEM_OPTIONS = STEPS[0].options
 
@@ -42,8 +43,8 @@ export default function Landing() {
         <div className="relative mx-auto max-w-3xl px-4 py-10 sm:py-14">
           {/* single promise, above the fold */}
           <div className="flex flex-col items-center text-center">
-            <a href={COMPANY.phoneHref} className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-brand-teal">
-              <IconPhone size={13} /> Prefer to talk? Call {COMPANY.phone}
+            <a href={phoneHref()} className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/70 hover:text-brand-teal">
+              <IconPhone size={13} /> Prefer to talk? Call {displayPhone()}
             </a>
             <span className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
               {copy.eyebrow}
