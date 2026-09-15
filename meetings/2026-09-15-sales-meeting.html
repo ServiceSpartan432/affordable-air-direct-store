@@ -354,26 +354,68 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
 <section class="item" id="i4">
   <div class="rail"><div class="num">04</div><input class="tick" type="checkbox" id="chk4" aria-label="Mark item 4 done"><div class="mins">12m</div></div>
   <div class="body">
-    <h2>Financing walkthrough</h2>
-    <p class="why">Every rep should be able to quote a payment from memory on the top two plans and know what each plan costs us. Payment equals loan amount times the payment factor. That is the whole formula.</p>
-    <p><b>The dealer fee goes on the contract, not on us.</b> We gross the price up so that after the lender takes their fee, we still net our price. The math is <code>contract = our price / (1 minus the dealer fee)</code>. Buy the rate down and the customer signs for a bigger number. That is the tradeoff you are presenting.</p>
-    <p>Worked live on a job we need to net <b>$14,500</b> on:</p>
+    <h2>Financing: sell the monthly payment</h2>
+    <p class="why">We do not sell a price. We sell a monthly payment. A homeowner who hears $17,500 hears a wall. The same homeowner hears $292 a month and starts picturing it. Your job is to get to the payment before you get to the price.</p>
+
+    <div class="say">
+      <span class="lab">The question. Ask it every time, before any numbers</span>
+      <p>"If I can design the perfect system that fits within your budget and meets all your needs, can I have your business today?"</p>
+      <p>Wait for the yes. That yes is the whole appointment. You are not asking permission to quote, you are getting the commitment before you spend an hour earning it.</p>
+      <p>Then, and only then: "So what does that look like for you? What is an ideal monthly payment?" Write the number down. Now you are designing to a target instead of guessing and hoping.</p>
+    </div>
+
+    <p><b>Payment factors.</b> A payment factor is the one number that turns a price into a payment. Multiply, that is it.</p>
+    <p style="font-size:18px"><code>amount financed &times; payment factor = monthly payment</code></p>
+    <p>Learn it per thousand and you can do it in your head at the kitchen table. On our most used plan, every $1,000 is $12.80 a month. A $16,000 system is sixteen times $12.80, about $205 a month, and you said it out loud without opening a calculator.</p>
     <div class="tw">
       <table>
-        <thead><tr><th>Plan</th><th class="n">APR</th><th class="n">Term</th><th class="n">Dealer fee</th><th class="n">Added to contract</th><th class="n">Contract total</th><th class="n">Payment</th></tr></thead>
+        <thead><tr><th>Plan</th><th class="n">Factor</th><th class="n">Per $1,000</th><th class="n">Dealer fee</th></tr></thead>
         <tbody>
-          <tr class="star"><td>GoodLeap standard</td><td class="n">12.99%</td><td class="n">15 yr</td><td class="n free">0.00%</td><td class="n free">$0</td><td class="n">$14,500</td><td class="n">$185.60</td></tr>
-          <tr><td>GoodLeap autopay</td><td class="n">9.99%</td><td class="n">15 yr</td><td class="n">7.75%</td><td class="n cost">$1,218</td><td class="n">$15,718</td><td class="n">$170.54</td></tr>
-          <tr><td>GoodLeap best rate</td><td class="n">7.99%</td><td class="n">15 yr</td><td class="n">13.75%</td><td class="n cost">$2,312</td><td class="n">$16,812</td><td class="n">$162.06</td></tr>
-          <tr><td>GoodLeap 10 yr</td><td class="n">9.99%</td><td class="n">10 yr</td><td class="n">7.25%</td><td class="n cost">$1,133</td><td class="n">$15,633</td><td class="n">$209.18</td></tr>
-          <tr class="star"><td>Wells Fargo 0124</td><td class="n">0%</td><td class="n">24 mo</td><td class="n">11.06%</td><td class="n cost">$1,803</td><td class="n">$16,303</td><td class="n">$679.84</td></tr>
-          <tr><td>Wells Fargo 0136</td><td class="n">0%</td><td class="n">36 mo</td><td class="n">13.41%</td><td class="n cost">$2,246</td><td class="n">$16,746</td><td class="n">$465.53</td></tr>
-          <tr><td>Wells Fargo 0160</td><td class="n">0%</td><td class="n">60 mo</td><td class="n">17.15%</td><td class="n cost">$3,002</td><td class="n">$17,502</td><td class="n">$292.28</td></tr>
-          <tr><td>Wells Fargo 1136</td><td class="n">2.99%</td><td class="n">120 mo</td><td class="n">19.25%</td><td class="n cost">$3,457</td><td class="n">$17,957</td><td class="n">$174.18</td></tr>
+          <tr class="star"><td>GoodLeap 15 yr, 12.99%</td><td class="n">0.01280</td><td class="n">$12.80</td><td class="n free">0.00%</td></tr>
+          <tr><td>GoodLeap 15 yr, 9.99%</td><td class="n">0.01085</td><td class="n">$10.85</td><td class="n">7.75%</td></tr>
+          <tr><td>GoodLeap 15 yr, 7.99%</td><td class="n">0.00964</td><td class="n">$9.64</td><td class="n">13.75%</td></tr>
+          <tr><td>GoodLeap 10 yr, 9.99%</td><td class="n">0.01338</td><td class="n">$13.38</td><td class="n">7.25%</td></tr>
+          <tr class="star"><td>WF 0160, 0% 60 mo</td><td class="n">1.67%</td><td class="n">$16.70</td><td class="n">17.15%</td></tr>
+          <tr><td>WF 0136, 0% 36 mo</td><td class="n">2.78%</td><td class="n">$27.80</td><td class="n">13.41%</td></tr>
+          <tr><td>WF 0124, 0% 24 mo</td><td class="n">4.17%</td><td class="n">$41.70</td><td class="n">11.06%</td></tr>
+          <tr><td>WF 1136, 2.99% 120 mo</td><td class="n">0.97%</td><td class="n">$9.70</td><td class="n">19.25%</td></tr>
         </tbody>
       </table>
     </div>
-    <p>Read that table left to right and you have the whole conversation. The 0% dealer fee plan is the cheapest contract the customer can sign, $14,500. Wells Fargo 0160 is a true 0% APR, and it puts <b>$3,002</b> on the contract to get there. Neither one is wrong. The customer picks.</p>
+
+    <p><b>Now run it backwards.</b> They gave you a number. Divide it by the factor and you know exactly what you can build them. This is the table to know cold:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th class="n">They say</th><th class="n">GoodLeap 12.99%<br>15 yr</th><th class="n">GoodLeap 9.99%<br>15 yr</th><th class="n">WF 0% <br>60 mo</th><th class="n">WF 2.99%<br>120 mo</th></tr></thead>
+        <tbody>
+          <tr><td class="n"><b>$150/mo</b></td><td class="n">$11,700</td><td class="n">$13,800</td><td class="n">$8,900</td><td class="n">$15,400</td></tr>
+          <tr class="star"><td class="n"><b>$200/mo</b></td><td class="n">$15,600</td><td class="n">$18,400</td><td class="n">$11,900</td><td class="n">$20,600</td></tr>
+          <tr><td class="n"><b>$250/mo</b></td><td class="n">$19,500</td><td class="n">$23,000</td><td class="n">$14,900</td><td class="n">$25,700</td></tr>
+          <tr><td class="n"><b>$300/mo</b></td><td class="n">$23,400</td><td class="n">$27,600</td><td class="n">$17,900</td><td class="n">$30,900</td></tr>
+          <tr><td class="n"><b>$400/mo</b></td><td class="n">$31,200</td><td class="n">$36,800</td><td class="n">$23,900</td><td class="n">$41,200</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Those are contract totals, what the customer signs for. Read the row and you know which system to walk in with. Somebody says $200 a month and you already know a $15,600 contract works on our standard plan, so the better option is live, not a stretch.</p>
+
+    <p><b>What we net is not what they sign.</b> We charge the dealer fee to the customer, so the contract gets grossed up: <code>contract = our price / (1 minus the dealer fee)</code>. Buy the rate down and the customer signs for a bigger number. On a job we need to net $14,500 on:</p>
+    <div class="tw">
+      <table>
+        <thead><tr><th>Plan</th><th class="n">Dealer fee</th><th class="n">Added to contract</th><th class="n">Contract total</th><th class="n">Payment</th></tr></thead>
+        <tbody>
+          <tr class="star"><td>GoodLeap 15 yr, 12.99%</td><td class="n free">0.00%</td><td class="n free">$0</td><td class="n">$14,500</td><td class="n">$185.60</td></tr>
+          <tr><td>GoodLeap 15 yr, 9.99%</td><td class="n">7.75%</td><td class="n cost">$1,218</td><td class="n">$15,718</td><td class="n">$170.54</td></tr>
+          <tr><td>GoodLeap 15 yr, 7.99%</td><td class="n">13.75%</td><td class="n cost">$2,312</td><td class="n">$16,812</td><td class="n">$162.06</td></tr>
+          <tr><td>GoodLeap 10 yr, 9.99%</td><td class="n">7.25%</td><td class="n cost">$1,133</td><td class="n">$15,633</td><td class="n">$209.18</td></tr>
+          <tr class="star"><td>WF 0124, 0% 24 mo</td><td class="n">11.06%</td><td class="n cost">$1,803</td><td class="n">$16,303</td><td class="n">$679.84</td></tr>
+          <tr><td>WF 0136, 0% 36 mo</td><td class="n">13.41%</td><td class="n cost">$2,246</td><td class="n">$16,746</td><td class="n">$465.53</td></tr>
+          <tr><td>WF 0160, 0% 60 mo</td><td class="n">17.15%</td><td class="n cost">$3,002</td><td class="n">$17,502</td><td class="n">$292.28</td></tr>
+          <tr><td>WF 1136, 2.99% 120 mo</td><td class="n">19.25%</td><td class="n cost">$3,457</td><td class="n">$17,957</td><td class="n">$174.18</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>The 0% dealer fee plan is the cheapest contract the customer can sign, $14,500. Wells Fargo 0160 is a true 0% APR and it puts $3,002 on the contract to get there. Neither one is wrong. You present both, the customer picks.</p>
+
     <div class="say">
       <span class="lab">Say this out loud</span>
       <p>Cash price and financed price are not the same number, and the customer hears that from you, not from the paperwork. "This is $14,500 if you write a check. If you want the 0% for five years, the contract is $17,502, because the lender charges us to buy that rate down and that cost is in the price."</p>
@@ -428,12 +470,11 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
   <div class="rail"><div class="num">06</div><input class="tick" type="checkbox" id="chk6" aria-label="Mark item 6 done"><div class="mins">7m</div></div>
   <div class="body">
     <h2>Job completion form: why, and what you think</h2>
-    <p class="why">Walk the form on screen, field by field. Then shut up and take feedback.</p>
+    <p class="why">Open it in ServiceTitan forms and walk it on screen, field by field. Then shut up and take feedback.</p>
     <p>The why, in one line: the completion form is what turns a finished job into a closed job. Signed by the tech and initialed by the customer means no callback argument three weeks later about whether the airflow was checked.</p>
     <p>What it captures: heating operating with all pilots on, condenser and coil operating, consistent airflow with no moisture or odor, no unusual noise, no leaks or moisture around lines, work areas clean.</p>
     <div class="links">
-      <a href="https://drive.google.com/file/d/1JxzauEXXs35eiAnA7Vk9hUP0G2PZ3ohI/view" target="_blank" rel="noopener">HVAC installation completion form <em>DOCX</em></a>
-      <a href="https://drive.google.com/file/d/1envu7mUu7mmDSJ9LAuu5MkmEM6D44wlD/view" target="_blank" rel="noopener">Production workflow and install manager KPIs <em>XLSX</em></a>
+      <a href="https://go.servicetitan.com/#/Settings/Forms" target="_blank" rel="noopener">Job Completion Form <em>SERVICETITAN FORMS</em></a>
     </div>
     <div class="say">
       <span class="lab">The two questions to ask</span>
@@ -451,7 +492,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
     <p class="why">Version 56 of the ServiceTitan maintenance form is live. It fires on job completion, on the mobile app, and it is required.</p>
     <p>How it is built: type of maintenance first (AC, furnace, heat pump, package unit, mini split), then stoplight ratings down the system. Red, yellow, green on condenser and coil condition and the rest. The stoplight is the sales tool. A yellow with a photo is an estimate. A yellow with nothing attached is a note nobody reads.</p>
     <div class="links">
-      <a href="https://drive.google.com/file/d/1wNe_xeLwJaCbISDMEsZ3u6pC01bKyPfX/view" target="_blank" rel="noopener">Maintenance form definition <em>JSON</em></a>
+      <a href="https://go.servicetitan.com/#/Settings/Forms" target="_blank" rel="noopener">New Maintenance Form <em>SERVICETITAN FORMS</em></a>
     </div>
     <div class="say">
       <span class="lab">Ask the room</span>
@@ -568,7 +609,7 @@ code{font-family:var(--mono);font-size:.9em;background:var(--ground);padding:1px
     <p><b>What belongs in HOA Information.</b> Management company name and phone, whether architectural approval is required before work, the submittal lead time in days, any equipment location or screening restriction, approved work hours, and whether a crane or roof access needs separate sign off.</p>
     <p><b>Permits.</b> Same conversation. Changeouts in our area need a mechanical permit, the job needs to pass Title 24 compliance, and duct or refrigerant work triggers field verification. If the HOA has a 30 day approval window and the permit has its own lead time, those run at the same time, not back to back. Say that to the customer up front so the install date you promise is the install date they get.</p>
     <div class="links">
-      <a href="https://drive.google.com/file/d/1g6a4GVGzLZaGIB_3ImXuLsgvMhci3ihy/view" target="_blank" rel="noopener">Engineering form definition <em>JSON</em></a>
+      <a href="https://go.servicetitan.com/#/Settings/Forms" target="_blank" rel="noopener">Engineering Form <em>SERVICETITAN FORMS</em></a>
     </div>
     <div class="say">
       <span class="lab">Say this out loud</span>
