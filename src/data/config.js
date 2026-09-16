@@ -6,12 +6,20 @@
 // into whichever campaign owns the main number.
 //
 // This must be a number that RINGS THE AIR DIRECT TEAM and is mapped to an Air
-// Direct campaign in ServiceTitan. Leave `phone` empty and nothing is swapped —
-// the store keeps showing COMPANY.phone everywhere, which is the safe default
-// and exactly what happens if this is never configured.
+// Direct campaign in ServiceTitan — deliberately NOT affordableairla.com's
+// ChatGPT line, which would land these callers on the AHA CSR desk when the
+// whole pitch here is that nobody gets handed to a salesperson.
+//
+// The number is the default rather than env-only on purpose. These are
+// build-time Vite vars, so a deploy that simply forgot to set them would
+// silently put the untracked number back with nothing to see — the same shape
+// of bug as a var missing from the hub's compose allowlist. It is not a secret;
+// it is printed on the page. The env var still overrides for a one-off build.
+//
+// Set `phone` to '' to turn the swap off entirely.
 export const CHATGPT_ADS = {
-  phone: import.meta.env.VITE_CHATGPT_ADS_PHONE || '',
-  phoneHref: import.meta.env.VITE_CHATGPT_ADS_PHONE_HREF || '',
+  phone: import.meta.env.VITE_CHATGPT_ADS_PHONE ?? '+1 818-217-1540',
+  phoneHref: import.meta.env.VITE_CHATGPT_ADS_PHONE_HREF ?? 'tel:8182171540',
 }
 
 export const COMPANY = {
