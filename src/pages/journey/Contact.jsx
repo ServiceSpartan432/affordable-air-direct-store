@@ -5,6 +5,7 @@ import { useQuote } from '../../context/QuoteContext.jsx'
 import { visibleSteps } from '../../data/journey.js'
 import { buildQuote } from '../../lib/quote.js'
 import { track, contactToUser } from '../../lib/tracking.js'
+import { trackFunnel } from '../../lib/funnel.js'
 import { sendQuoteEmail } from '../../lib/quoteEmail.js'
 import { IconArrowLeft, IconArrowRight, IconShield } from '../../components/icons.jsx'
 
@@ -43,6 +44,17 @@ export default function Contact() {
     // No selectedSku here on purpose — nothing has been chosen yet at this point,
     // and quoteEmail.js already falls back to the featured option for the value.
     sendQuoteEmail({ contact, systemKey, label, tons, options })
+    // The other casualty of that same move. `contact_submit` is what sets
+    // FunnelSession.submitted, and it has not fired since 26 Aug — so
+    // /store-funnel has been reporting a 0% submit rate for every source while
+    // leads arrived normally (34 of them in the fortnight to 24 Sep). A drop-off
+    // report that always reads zero at the last step is worse than none: it
+    // hides the step that is actually leaking.
+    trackFunnel('contact_submit', {
+      systemKey,
+      tons,
+      value: featured?.price,
+    })
     navigate('/journey/results')
   }
 
