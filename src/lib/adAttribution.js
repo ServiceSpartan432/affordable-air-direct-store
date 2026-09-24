@@ -107,3 +107,77 @@ export function getSourceUrl() {
   if (typeof window === 'undefined') return ''
   return (window.location.origin + window.location.pathname).slice(0, 2000)
 }
+
+// ---------------------------------------------------------------------------
+// Phone and email taps.
+//
+// This is the conversion that actually happens here. In the first two weeks of
+// the Air Direct ads, ChatGPT traffic produced three phone calls and two booked
+// jobs — and zero form submissions. Ads Manager showed the group at 0
+// conversions the whole time, because a tap on a phone number never reaches a
+// server on its own. OpenAI was bidding the group against a false zero.
+//
+// The sink is aha-scheduler's /api/ad-click, the same endpoint affordableairla.com
+// has posted to since August: it already de-duplicates on (oppref, kind), already
+// reports to OpenAI, and is already deployed. Re-implementing it here would mean
+// a second copy of a thing that works.
+//
+// Cross-origin is fine. sendBeacon with a plain string body is a CORS-safelisted
+// "simple" request, so it is never preflighted — which matters, because the
+// browser is already handing off to the dialer and a preflight would lose the race.
+// ---------------------------------------------------------------------------
+
+const TAP_ENDPOINT = 'https://book.affordableairla.com/api/ad-click'
+
+const tapsSent = Object.create(null)
+
+function reportTap(kind) {
+  // One tap per kind per page view is one lead; a customer who taps call twice
+  // has not converted twice.
+  if (tapsSent[kind]) return
+  const oppref = getOppref()
+  // Without a click id there is nothing to attribute, and the endpoint rejects
+  // it anyway. An ordinary visitor tapping the number is not an ad conversion.
+  if (!oppref) return
+  tapsSent[kind] = true
+
+  const body = JSON.stringify({ kind, oppref, pageUrl: getSourceUrl() })
+  try {
+    if (navigator.sendBeacon) {
+      // Plain string, NOT a typed Blob — a typed Blob reintroduces the preflight
+      // this whole approach exists to avoid (see quoteEmail.js for the incident).
+      navigator.sendBeacon(TAP_ENDPOINT, body)
+      return
+    }
+  } catch { /* fall through to fetch */ }
+  try {
+    fetch(TAP_ENDPOINT, {
+      method: 'POST',
+      body,
+      headers: { 'Content-Type': 'text/plain' },
+      keepalive: true,
+      mode: 'no-cors',
+      credentials: 'omit',
+    })
+  } catch { /* nothing more we can do, and the visitor must not notice */ }
+}
+
+function onInteract(e) {
+  let el = e.target
+  while (el && el !== document && el.tagName !== 'A') el = el.parentNode
+  if (!el || el.tagName !== 'A') return
+  const href = (el.getAttribute('href') || '').toLowerCase()
+  if (href.startsWith('tel:')) reportTap('phone')
+  else if (href.startsWith('mailto:')) reportTap('email')
+}
+
+/**
+ * Start watching for taps. Delegated and capturing, and bound to pointerdown as
+ * well as click: on mobile the browser hands off to the dialer fast enough that
+ * a listener on the anchor itself can be torn down before it runs.
+ */
+export function watchAdTaps() {
+  if (typeof document === 'undefined') return
+  document.addEventListener('pointerdown', onInteract, true)
+  document.addEventListener('click', onInteract, true)
+}
